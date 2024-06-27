@@ -1,0 +1,335 @@
+/* Body */
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* Header */
+.nav-item a::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    background-color: #209CEE;
+    margin: auto;
+    display: block;
+    border-radius: 50px;
+}
+
+.nav-item a:hover::after {
+    width: 100%;
+    transition: width 0.3s linear;
+}
+
+/* Logo */
+#logo {
+    display: inline-block;
+    margin-left: 15px;
+    cursor: pointer;
+    font-size: 23px;
+    font-weight: bolder;
+    color: black;
+    z-index: 1;
+}
+
+#logo:hover {
+    color: #209CEE;
+}
+
+#logo-s {
+    font-weight: light;
+    color: #209CEE;
+}
+
+#logo:hover #logo-s {
+    color: #209CEE;
+}
+
+#logo-s:hover #logo {
+    color: black;
+}
+/* Fund us Button */
+.background {
+    display: inline-block;
+    place-items: center;
+}
+
+.button {
+    color: black;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 2.5rem;
+    max-width: 160px; 
+    width: 100%; 
+    margin-right: 80px;
+    letter-spacing: 0.1rem;
+    font-weight: 600;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    transition: all 1s ease-in;
+}
+
+.button:hover {
+    color: #209CEE;
+}
+
+.button svg {
+    height: 40px;
+    left: 0;
+    top: 0; 
+    position: absolute;
+    width: 100%; 
+}
+
+.button rect {      
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-dasharray: 450, 0;
+    transition: all 0.5s linear;
+}
+
+.button:hover rect {
+    stroke-width: 5;
+    stroke-dasharray: 20, 300;
+    stroke-dashoffset: 48;
+    stroke: #1F2346;
+    transition: all 2s cubic-bezier(
+        0.22, 1, 0.25, 1
+    );
+}
+/* Button on Mobile resolutions */
+@media screen and (max-width:800px) {
+    .background{
+        display: none;
+    }
+
+    .navbar-toggler {
+        place-items: end;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .background{
+        display: none;
+    }
+
+    .navbar-toggler {
+        place-items: end;
+    }
+}
+/* Search Button */
+/* .search-container {
+    position: relative;
+    background-position: 100%;
+    margin: 4px 2px;
+    height: 30px;
+    width: 30px;
+    vertical-align: bottom;
+    float: right;
+    margin-right: 120px;
+    font-weight: bolder;
+    margin-top: 0px;
+    z-index: 1;
+}
+
+.mglass {
+    display: inline-block;
+    pointer-events: none;
+    transform: rotate(-0deg);
+    -moz-transform: rotate(-0deg);
+    -o-transform: rotate(-0deg);
+    -ms-transform: rotate(-0deg);
+}
+
+.searchbutton {
+    position: absolute;
+    font-size: 22px;
+    width: 80%;
+    margin: 0;
+    padding: 0;
+}
+
+.search:focus+.searchbutton {
+    transition-duration: 0.4s;
+    -moz-transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    background-color: white;
+    color: black;
+}
+
+.search {
+    position: absolute;
+    left: 20px;
+    background-color: white;
+    outline: none;
+    border: none;
+    padding: 0;
+    width: 0;
+    height: 100%;
+    z-index: 10;
+    transition-duration: 0.4s;
+    -moz-transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    border-radius: 15px;
+}
+
+.search:focus {
+    width: 200px;
+    padding: 0 16px 0 0;
+    border: 1px solid black;
+}
+
+.expandright {
+    left: auto;
+    right: 35px;
+}
+
+.expandright:focus {
+    padding: 0 0 0 16px;
+}
+
+@media screen and (max-width:800px) {
+    .search-container{
+        display: none;
+    }
+    .navbar-toggler{
+        place-items: end;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    
+}
+.myheading h2{
+    text-align: center;
+    font-weight: bolder;
+} */
+/* Map integrartion*/
+#map {
+    height: 91vh;
+    display: none;
+    /* zoom: 1.1; */
+}
+
+#result {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: .7rem;
+    margin-top: 1rem;
+    display: none;
+}
+/* geoMap */
+/* #showPosition{
+    place-items: center;
+    height: 10vh;
+    border: 0px solid;
+    outline: 2px solid;
+    color: #1F2346;
+    outline-color: #1F2346;
+    outline-offset: 0px;
+    text-shadow: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 2.5rem;
+    max-width: 160px; 
+    width: 100%; 
+    letter-spacing: 0.3rem;
+    font-weight: 600;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    transition: all 550ms cubic-bezier(
+        .36,.63,.5,.73
+    );
+}
+#showPosition:hover{
+    border: 2px solid #209CEE;
+    outline-color: rgba(255, 255, 255, 0);
+    outline-offset: 15px;
+    color: #209CEE;
+} */
+
+/* Footer */
+/* .footer{
+    margin-top: 80px;
+    background-color: black;
+    width: 100%;
+}
+.foot{
+    padding: 20px 0;
+}
+.footer-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+}
+.footlinks h4{
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 30px;
+    position: relative;
+}
+.footlinks h4::before{
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 70px;
+    left: 0;
+    bottom: -7px;
+    background: white;
+}
+.footlinks ul li{
+    margin-bottom: 15px;
+}
+.footlinks ul li a{
+    font-size: 17px;
+    color: #dddddd;
+    display: block;
+    transition: ease 0.30s;
+    text-decoration: none;
+}
+.footlinks ul li a:hover{
+    transform: translate(6px);
+    color: white;
+}
+.social a{
+    font-size: 25px;
+    margin: 4px;
+    height: 40px;
+    width: 40px;
+    color: black;
+    background-color: white;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    transition: ease 0.30s;
+    text-decoration: none;
+}
+.social a:hover{
+    transform: scale(1.2);
+    color: #209CEE;
+}
+.end{
+    text-align: center;
+    padding-top: 60px;
+    padding-bottom: 12px;
+}
+.end p{
+    font-size: 15px;
+    color: white;
+    letter-spacing: 1px;
+    font-weight: 300;
+} */

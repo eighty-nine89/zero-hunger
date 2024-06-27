@@ -1,0 +1,298 @@
+/* Body */
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* Header */
+.navbar{
+    position: fixed;
+}
+.nav-item a::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    background-color: #209CEE;
+    margin: auto;
+    display: block;
+    border-radius: 50px;
+}
+
+.nav-item a:hover::after {
+    width: 100%;
+    transition: width 0.3s linear;
+}
+
+/* Logo */
+#logo {
+    display: inline-block;
+    margin-left: 15px;
+    cursor: pointer;
+    font-size: 23px;
+    font-weight: bolder;
+    color: black;
+    z-index: 1;
+}
+
+#logo:hover {
+    color: #209CEE;
+}
+
+#logo-s {
+    font-weight: light;
+    color: #209CEE;
+}
+
+#logo:hover #logo-s {
+    color: #209CEE;
+}
+
+#logo-s:hover #logo {
+    color: black;
+}
+/* Fund us Button */
+.background {
+    display: inline-block;
+    place-items: center;
+}
+
+.button {
+    color: black;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 2.5rem;
+    max-width: 160px; 
+    width: 100%; 
+    margin-right: 80px;
+    letter-spacing: 0.1rem;
+    font-weight: 600;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    transition: all 1s ease-in;
+}
+
+.button:hover {
+    color: #209CEE;
+}
+
+.button svg {
+    height: 40px;
+    left: 0;
+    top: 0; 
+    position: absolute;
+    width: 100%; 
+}
+
+.button rect {      
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-dasharray: 450, 0;
+    transition: all 0.5s linear;
+}
+
+.button:hover rect {
+    stroke-width: 5;
+    stroke-dasharray: 20, 300;
+    stroke-dashoffset: 48;
+    stroke: #1F2346;
+    transition: all 2s cubic-bezier(
+        0.22, 1, 0.25, 1
+    );
+}
+/* Button on Mobile resolutions */
+@media screen and (max-width:800px) {
+    .background{
+        display: none;
+    }
+
+    .navbar-toggler {
+        place-items: end;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .background{
+        display: none;
+    }
+
+    .navbar-toggler {
+        place-items: end;
+    }
+}
+/* Blog */
+
+/*Blog Title */
+.header {
+padding: 10px;
+font-size: 30px;
+text-align: center;
+background: white;
+width: 100%;
+}
+.header h2{
+    font-weight: bolder;
+}
+
+/* two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+float: left;
+width: 70%;
+}
+
+/* Right column */
+.rightcolumn {
+float: left;
+width: 25%;
+padding-left: 20px;
+}
+
+/* Blog image */
+.blog_img img{
+width: 100%;
+height: 25%;
+padding: 20px;
+}
+
+/* card effect for articles */
+.card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+}
+/* Popular post */
+.popular_post{
+    flex-direction: row;
+}
+.container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    row-gap: 10rem;
+    margin-left: -30rem;
+}
+.container .post_card{
+    margin: 10px;
+}
+.container .post_card .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.container .post_card .content .imgBx{
+   width: 90px;
+   height: 90px;
+   border-radius: 50%;
+   position: relative;
+   margin-bottom: 20px; 
+   overflow: hidden;
+}
+.container .post_card .content .imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.container .post_card .content .contentBx h6{
+    font-weight: bolder;
+}
+/* floats after the columns */
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+
+/* Footer */
+.footer{
+margin-top: 80px;
+background-color: black;
+width: 100%;
+}
+.foot{
+padding: 20px 0;
+}
+.footer-content{
+display: flex;
+flex-wrap: wrap;
+justify-content: space-around;
+
+}
+.footlinks h4{
+margin-top: 30px;
+font-size: 20px;
+font-weight: 600;
+color: white;
+margin-bottom: 30px;
+position: relative;
+}
+.footlinks h4::before{
+content: "";
+position: absolute;
+height: 2px;
+width: 70px;
+left: 0;
+bottom: -7px;
+background: white;
+}
+.footlinks ul li{
+margin-bottom: 15px;
+}
+.footlinks ul li a{
+font-size: 17px;
+color: #dddddd;
+display: block;
+transition: ease 0.30s;
+text-decoration: none;
+}
+.footlinks ul li a:hover{
+transform: translate(6px);
+color: white;
+}
+.social a{
+font-size: 25px;
+margin: 4px;
+height: 40px;
+width: 40px;
+color: black;
+background-color: white;
+display: inline-flex;
+justify-content: center;
+align-items: center;
+border-radius: 20px;
+transition: ease 0.30s;
+text-decoration: none;
+}
+.social a:hover{
+transform: scale(1.2);
+color: #209CEE;
+}
+.end{
+text-align: center;
+padding-top: 60px;
+padding-bottom: 12px;
+}
+.end p{
+font-size: 15px;
+color: white;
+letter-spacing: 1px;
+font-weight: 300;
+}
+
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+.leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+}
+}

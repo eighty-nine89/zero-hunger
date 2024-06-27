@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keyword"
+    content="Food insecurity,SDG goals, World hunger, Zero hunger, food wastage, food donation, world food programme,food storage, restaurant" />
+  <meta name="description" content="Food insecurity, World hunger, Zero hunger" />
+  <meta name="main" content="INDEX, FOLLOW" />
+  <title>zeroHunger | Home</title>
+  <link rel="stylesheet" href="css/index.css" type="text/css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <nav class="navbar navbar-expand-sm bg-white text-dark justify-content-center fixed-top">
+    <div class="container-fluid justify-content-space-between">
+      <div id="logo">zero<a class="navbar-brand" href="index.html" translate="no" id="logo-s">Hunger</a></div>
+      <button class="navbar-toggler hide border-white" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item" style="white-space: nowrap;">
+            <a class="nav-link" href="donate.html">Donate</a>
+          </li>
+          <li class="nav-item" style="white-space: nowrap;">
+            <a class="nav-link" href="catalogue.html">Catalogue</a>
+          </li>
+          <li class="nav-item" style="white-space: nowrap;">
+            <a class="nav-link" href="contactus.html">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Profile -->
+      <span class="navigation__group">
+        <img class="profile" src="images/avatar.png" alt="Joe Doe Picture">
+      </span>
+      <div class="dropdown__wrapper hide bg-white dropdown__wrapper--fade-in none">
+        <div class="dropdown__group">
+          <div class="user-name">FullName</div>
+        </div>
+        <hr class="divider">
+        <nav>
+          <ul>
+            <li onclick="document.location='donate.html'">
+              <img src="images/profile.svg" alt="Donate"> Donate
+            </li>
+          </ul>
+          <hr class="divider">
+          <ul>
+            <li onclick="document.location='catalogue.html'">
+              <img src="images/profile.svg" alt="Catalogue"> Request
+            </li>
+          </ul>
+          <hr class="divider">
+          <ul>
+            <li onclick="document.location='fundus.html'">
+              <img src="images/profile.svg" alt="fund us"> Fund Us
+            </li>
+          </ul>
+          <hr class="divider">
+          <ul>
+            <li onclick="document.location = 'logout.php'" style="color: #E3452F;" id="signoutbutton">
+              <img src="images/logout.svg" alt="Log Out">Log out
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </nav>
+  <!-- Carousel -->
+  <div id="demo" class="carousel slide mt-5" data-bs-ride="carousel">
+    <!-- Indicators or dots -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
+    </div>
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="images/hungrychild1.jpg" alt="zero hunger picture" class="d-block" style="width:100%">
+        <!-- Start - sliding text -->
+        <div class="myslider fade" style="display: block;">
+          <div class="txt">
+            <h1>zeroHunger</h1>
+            <h3>SDG-2 goal by 2030</h3>
+            <h5>End Hunger and achieve food security</h5>
+          </div>
+        </div>
+        <!-- End -->
+        <div class="carousel-caption">
+          <h3>Zero Hunger</h3>
+          <p>Eradicating world food hunger !</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="images/hungerkid.jpg" alt="zero hunger picture" class="d-block" style="width:100%">
+        <!-- Start - sliding text -->
+        <div class="myslider fade" style="display: block;">
+          <div class="txt">
+            <h1>zeroHunger</h1>
+            <h3>SDG-2 goal by 2030</h3>
+            <h5>Universal access to safe and nutritious food</h5>
+          </div>
+        </div>
+        <!-- End -->
+        <div class="carousel-caption">
+          <h3>Zero Hunger</h3>
+          <p>Eradicating world food hunger !</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="images/hungrychild2.jpg" alt="zero hunger picture" class="d-block" style="width:100%">
+        <!-- Start - sliding text -->
+        <div class="myslider fade" style="display: block;">
+          <div class="txt">
+            <h1>zeroHunger</h1>
+            <h3>SDG-2 goal by 2030</h3>
+            <h5>Promote sustainable agriculture</h5>
+          </div>
+        </div>
+        <!-- End -->
+        <div class="carousel-caption">
+          <h3>Zero Hunger</h3>
+          <p>Eradicating world food hunger !</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="images/hungerchild3.jpg" alt="zero hunger picture" class="d-block" style="width:100%">
+        <!-- Start - sliding text -->
+        <div class="myslider fade" style="display: block;">
+          <div class="txt">
+            <h1>zeroHunger</h1>
+            <h3>SDG-2 goal by 2030</h3>
+            <h5>End all forms of malnutrition</h5>
+          </div>
+        </div>
+        <!-- End -->
+        <div class="carousel-caption">
+          <h3>Zero Hunger</h3>
+          <p>Eradicating world food hunger !</p>
+        </div>
+      </div>
+    </div>
+    <!-- Left and right controls of the slideshow -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+  <!-- Donate Button -->
+  <div class="container-fluid mt-5">
+    <div class="row mt-5">
+      <span class="background">
+        <a href="donate.html" class='button' title="Donate item">
+          Donate
+        </a>
+      </span>
+    </div>
+  </div>
+  <!-- Available item carousel-->
+  <div class="container-fluid mt-5">
+    <div class="row">
+      <div class="heading mt-2">
+        <h3 onclick="document.location='catalogue.html'">AVAILABLE ITEMS CATEGORY</a></h3>
+        <p>Take a look at the food items donated on zeroHunger</p>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt-0">
+    <div class="row">
+      <div class="firstsliding">
+        <div class="firstslide-track">
+          <div class="firstslide">
+            <img src="images/fruit.jpg">
+          </div>
+          <div class="firstslide">
+            <img src="images/bread.jpg">
+          </div>
+          <div class="firstslide">
+            <img src="images/meat.jpg">
+          </div>
+          <div class="firstslide">
+            <img src="images/daiyr.avif">
+          </div>
+          <div class="firstslide">
+            <img src="images/vegetables.jpg">
+          </div>
+          <div class="firstslide">
+            <img src="images/cereal.webp">
+          </div>
+
+
+          <div class="firstslide">
+            <img src="images/grain.jpg">
+          </div>
+          <div class="firstslide">
+            <img src="images/eggs.jpg">
+          </div>
+          <div class="firstslide">
+            <img src="images/fish.jpg">
+          </div>
+          <div class="firstslide">
+            <img src="images/nuts.jpg">
+          </div>
+          <div class="firstslide">
+            <img src="images/meat1.jpg">
+          </div>
+          <div class="firstslide">
+            <img src="images/food.jpeg">
+          </div>
+          <div class="firstslide">
+            <img src="images/oil.jpg">
+          </div>
+          <div class="firstslide">
+            <img src="images/daiyr.avif">
+          </div>
+          <div class="firstslide">
+            <img src="images/vegetables.jpg">
+          </div>
+          <div class="firstslide">
+            <img src="images/cereal.webp">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- zeroHunger faq & information hub -->
+  <div class="heading mt-4">
+    <h3>LEARN MORE ABOUT SUSTAINABLE DEVELOPMENTAL GOAL 2 (ZERO HUNGER)</a></h3>
+  </div>
+  <div class="faq-container">
+    <details>
+      <summary>
+        <span class="faq-title">
+          What is zeroHunger and it's mission ?
+        </span>
+        <img src="images/plus.svg" class="expand-icon" alt="Plus">
+      </summary>
+      <div class="faq-content">
+        The zeroHunger (SDG-2) aim to end all forms of hunger and malnutrition by 2030, making sure all
+        people–especially children–have sufficient and nutritious food all year. This involves promoting sustainable
+        agricultural, supporting small-scale farmers and equal access to land, technology and markets.
+      </div>
+    </details>
+    <details>
+      <summary>
+        <span class="faq-title">
+          What is Sustainable Developmental Goal 2 ?
+        </span>
+        <img src="images/plus.svg" class="expand-icon" alt="Plus">
+      </summary>
+      <div class="faq-content">
+        Sustainable Development Goal 2 aims to achieve "zero hunger". It is one of the 17 Sustainable Development Goals
+        established by the United Nations in 2015. The official wording is: "End hunger, achieve food security and
+        improved nutrition and promote sustainable agriculture".
+      </div>
+    </details>
+    <details>
+      <summary>
+        <span class="faq-title">
+          How does zeroHunger operate ?
+        </span>
+        <img src="images/plus.svg" class="expand-icon" alt="Plus">
+      </summary>
+      <div class="faq-content">
+        Zero Hunger is one of the United Nations Sustainable Development Goals (SDGs) and is defined as the objective to
+        ensure that everyone has access to sufficient, safe, and nutritious food to meet their dietary needs and
+        preferences. zeroHunger works as an intermidiary
+        for the donor to donate food items to the reciever through a centralize organization responsible for the
+        scrutinizing of the donated food items to the receiver.
+      </div>
+    </details>
+    <details>
+      <summary>
+        <span class="faq-title">
+          What are the goals of zero Hunger by 2030 ?
+        </span>
+        <img src="images/plus.svg" class="expand-icon" alt="Plus">
+      </summary>
+      <div class="faq-content">
+        The need for better nutrition was recognised in SDG 2, which aims to “end hunger, achieve food security and
+        improved nutrition, and promote sustainable agriculture.
+      </div>
+    </details>
+    <details>
+      <summary>
+        <span class="faq-title">
+          why donate excess food or suplus food ?
+        </span>
+        <img src="images/plus.svg" class="expand-icon" alt="Plus">
+      </summary>
+      <div class="faq-content">
+        When wholesome food is rescued, redistributed, or donated, it nourishes people and keeps food from being wasted
+      </div>
+    </details>
+  </div>
+  <!-- Embedded video -->
+  <div class="container-fluid mt-5">
+    <div class="row mt-5">
+      <div class="heading">
+        <h3>WATCH MORE <a href="https://www.youtube.com/@UNFAO" target="_blank"
+            style="color: #209CEE; text-decoration: none;">HERE</a></h3>
+      </div>
+    </div>
+  </div>
+  <div class="embed-responsive embed-responsive-16by9 container-fluid mt-3">
+    <div class="row">
+      <div class="center">
+        <div class="video">
+          <video controls width="70%" height="5%" controls>
+            <source src="video/SDG 2_ ZERO HUNGER.mp4" type="video/mp4">
+            <source src="video/SDG 2_ ZERO HUNGER.mp4" type="video/ogg">
+            Your browser does not support the video.
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- zeroHunger Newsletter -->
+  <section class="newsletter">
+    <div class="newstext">
+      <h2>Newsletter</h2>
+      <p>Subscribe to Get updates on events, <br> volunteer opportunities and other news.</p>
+    </div>
+    <div class="send">
+      <form action="https://formsubmit.co/kobbyfrimpz89@gmail.com" method="POST">
+        <input type="email" name="email" placeholder="E-mail" autocomplete="on" required>
+        <button id="button2" type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+  <!-- Footer -->
+  <div class="myfooter">
+    <section class="footer">
+      <div class="foot">
+        <div class="footer-content">
+
+          <div class="footlinks">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="donate.html">Donate</a></li>
+              <li><a href="aboutus.html">About Us</a></li>
+              <li><a href="contactus.html">Contact Us</a></li>
+              <li><a href="blog.html">Our Blog</a></li>
+              <li><a href="fundus.html">Fund Us</a></li>
+            </ul>
+          </div>
+
+          <div class="footlinks">
+            <h4>Connect</h4>
+            <div class="social">
+              <a href="#" target="_blank"><i class='bx bxl-facebook'></i></a>
+              <a href="#" target="_blank"><i class='bx bxl-instagram'></i></a>
+              <a href="#" target="_blank"><i class='bx bxl-linkedin'></i></a>
+              <a href="#" target="_blank"><i class='bx bxl-youtube'></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="end">
+        <p>Tel: 024 114 5862 | <a href="mailto:kobbyfrimpz89@gmail.com"
+            style="text-decoration: none; color: white;">Email: support@zeroHunger.com</a> | Copyright © 2024 zeroHunger
+          | All Rights Reserved <br>Website developed by: zeroHunger | Computer Science Department | KNUST.</p>
+      </div>
+    </section>
+  </div>
+  <!-- Sript Files -->
+  <script src="javascript/script-profile.js"></script>
+  <script src="javascript/script-information-hub.js"></script>
+</body>
+
+</html>

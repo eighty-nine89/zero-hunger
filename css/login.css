@@ -1,0 +1,348 @@
+/* Body */
+body {
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Logo */
+#logo {
+    display: inline-block;
+    margin-left: 30px;
+    cursor: pointer;
+    font-size: 23px;
+    font-weight: bolder;
+    color: black;
+    z-index: 1;
+}
+
+#logo:hover {
+    color: #209CEE;
+}
+
+#logo-s {
+    font-weight: light;
+    color: #209CEE;
+}
+
+#logo:hover #logo-s {
+    color: #209CEE;
+}
+
+#logo-s:hover #logo {
+    color: black;
+}
+
+/* Form colours */
+:root {
+    --primary: #209CEE;
+    --primary-light: #595d5f;
+    --secondary: #1D1D1D;
+    --background: #F4F1FF;
+    --text: #1F2346;
+}
+
+/* Form */
+.socials-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.socials-row img {
+    width: 24px;
+    height: 24px;
+}
+
+.socials-row>a {
+    padding: 8px;
+    border-radius: 8px;
+    width: 100%;
+    min-height: 48px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: var(--text);
+    padding: 8px;
+    border: 1px solid var(--primary-light);
+    font-weight: 700;
+}
+
+.socials-row>a:hover {
+    border: 1px solid var(--primary);
+}
+
+.divider {
+    display: flex;
+    flex-direction: row;
+    color: var(--secondary);
+    gap: 16px;
+    align-items: center;
+}
+
+.divider-line {
+    width: 100%;
+    height: 1px;
+    background-color: var(--secondary);
+    opacity: .2;
+}
+
+/* Form */
+.form-wrapper {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 1800px;
+    justify-content: center;
+}
+
+.form-side {
+    padding: 186px 32px 48px 32px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    background-color: white;
+}
+
+.my-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    position: relative;
+    gap: 16px;
+    max-width: 420px;
+    min-width: 300px;
+    width: 100%;
+    padding: 48px 32px;
+    height: fit-content;
+    box-shadow:
+        rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    top: -15%;
+}
+
+.input__wrapper {
+    position: relative;
+    padding: 15px 0 0;
+}
+
+/* Form heading */
+.form-welcome-row {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.form-welcome-row h1 {
+    font-size: 1.6rem;
+}
+
+/* Email */
+.input__textfield {
+    min-width: 300px;
+    width: 100%;
+    height: 50px;
+    border: 1px solid var(--secondary);
+    font-size: 1rem;
+    border-radius: 8px;
+    color: var(--text);
+    padding: 8px;
+    padding-right: 32px;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.input__textfield::placeholder {
+    color: transparent;
+}
+
+.input__textfield:placeholder-shown~.input__label {
+    font-size: 1rem;
+    cursor: text;
+    color: var(--secondary);
+    top: 24px;
+}
+
+
+label,
+.input__textfield:focus~.input__label {
+    position: absolute;
+    top: 6px;
+    padding: 0 4px;
+    background-color: white;
+    display: block;
+    font-size: 14px;
+    left: 8px;
+    color: var(--secondary);
+    transition: 0.3s;
+}
+
+.input__textfield:focus~.input__label {
+    color: var(--primary);
+}
+
+.input__textfield:focus {
+    border: 1px solid var(--primary);
+    outline: 1px solid var(--primary);
+}
+
+/* Password */
+.input__field {
+    min-width: 300px;
+    width: 100%;
+    height: 50px;
+    border: 1px solid var(--secondary);
+    font-size: 1rem;
+    border-radius: 8px;
+    color: var(--text);
+    padding: 8px;
+    padding-right: 32px;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.input__field::placeholder {
+    color: transparent;
+}
+
+.input__field:placeholder-shown~.input__label {
+    font-size: 1rem;
+    cursor: text;
+    color: var(--secondary);
+    top: 24px;
+}
+
+
+label,
+.input__field:focus~.input__label {
+    position: absolute;
+    top: 6px;
+    padding: 0 4px;
+    background-color: white;
+    display: block;
+    font-size: 14px;
+    left: 8px;
+    color: var(--secondary);
+    transition: 0.3s;
+}
+
+.input__field:focus~.input__label {
+    color: var(--primary);
+}
+
+.input__field:focus {
+    border: 1px solid var(--primary);
+    outline: 1px solid var(--primary);
+}
+
+/* Submit Button */
+.my-form__button {
+    background-color: rgb(64, 186, 186);
+    color: white;
+    white-space: nowrap;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+    line-height: 50px;
+    outline: none;
+    font-size: 18px;
+    letter-spacing: .025em;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 800;
+    min-height: 50px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .15);
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
+.my-form__button:hover {
+    background-color: var(--text);
+}
+
+/* Forget password */
+.my-form__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: var(--secondary);
+    gap: 16px;
+    margin-top: 2px;
+    font-size: smaller;
+}
+
+.my-form__actions a {
+    color: black;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.my-form__actions a:first-child {
+    text-align: left;
+}
+
+
+.my-form__actions a:last-child {
+    text-align: right;
+}
+
+.my-form__actions a:hover {
+    text-decoration: underline;
+}
+
+.my-form__row {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Sign up */
+.my-form__signup {
+    display: flex;
+    justify-content: center;
+    margin-top: -10px;
+}
+
+.my-form__signup a {
+    color: var(--primary);
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.my-form__signup a:hover {
+    text-decoration: underline;
+    color: var(--text);
+}
+
+/* Eye Password */
+.input__icon {
+    position: absolute;
+    right: -5px;
+    bottom: -2px;
+    width: 26px;
+    height: 26px;
+    padding: 2px;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    cursor: pointer;
+}
+
+.input__icon:focus {
+    border-radius: 50%;
+}
+
+/* Mobile resolution */
+@media (max-width: 840px) {
+    .form-wrapper {
+        grid-template-columns: 1fr;
+        height: 100vh;
+    }
+}
