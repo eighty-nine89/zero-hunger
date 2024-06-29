@@ -176,6 +176,7 @@ body {
     height: fit-content;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     top: -12%;
+    margin-bottom: -9%;
 }
 
 .form-heading-row {
@@ -282,14 +283,18 @@ textarea {
 @media (max-width: 840px) {
     .form-wrapper {
         grid-template-columns: 1fr;
-        height: 100vh;
+        /* height: 100vh; */
+    }
+    .my-form{
+        margin-bottom: -10rem;
     }
     .info-side {
         display: none;
         padding: 48px 48px 48px 32px;
     }
 }
-.info-side {
+/* side image to a form */
+/* .info-side {
     height: 100vh;
     padding: 248px 12px 8px 12px;
     color: #401B3D;
@@ -305,10 +310,9 @@ textarea {
 .info-side img {
     max-width: 360px;
     z-index: 1;
-}
+} */
 /* footer */
-/* .footer{
-    margin-top: 80px;
+.footer{
     background-color: black;
     width: 100%;
 }
@@ -380,4 +384,4 @@ textarea {
     color: white;
     letter-spacing: 1px;
     font-weight: 300;
-} */
+}

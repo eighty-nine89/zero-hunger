@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Request Food | Catalogue </title>
+  <title>zeroHunger | Request Food</title>
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="stylesheet" href="css/foodbank.css" type="text/css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -63,7 +63,7 @@
           <th>Item ID</th>
           <th>Name of food</th>
           <th>Food type</th>
-          <th>Food bank center</th>
+          <th>Food Bank Center</th>
           <th>Picture of item</th>
           <th>Food details</th>
           <th>Request food</th>
@@ -90,9 +90,9 @@
       td1.innerHTML = ++foodNo;
       td2.innerHTML = foodName;
       td3.innerHTML = foodType;
-      td6.innerHTML = foodbankCenter;
-      td7.innerHTML = foodPicture;
-      td8.innerHTML = foodMessage;
+      td4.innerHTML = foodbankCenter;
+      td5.innerHTML = foodPicture;
+      td6.innerHTML = foodMessage;
 
       trow.appendChild(td1);
       trow.appendChild(td2);
@@ -101,20 +101,21 @@
       trow.appendChild(td5);
       trow.appendChild(td6);
 
+
       tbody.appendChild(trow);
     }
 
     function AddAllItemsToTable(Thefood) {
       foodNo = 0;
       tbody.innerHTML = "";
-      Food.forEach(element => {
+      Thefood.forEach(element => {
         AddItemToTable(element.foodName, element.foodType, element.foodbankCenter, element.foodPicture, element.foodMessage);
       });
     }
 
     // Firebase Confguration
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -133,13 +134,13 @@
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+    const analytics = getAnalytics();
 
-    import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
     const db = getDatabase();
 
-    // Getting data from database
+    // Getting data from database (not realtime data fetching from firebase database)
     function GetAllDataOnce() {
       const dbRef = ref(db);
 
@@ -155,7 +156,23 @@
         })
     }
 
-    window.onload = GetAllDataOnce;
+    // Getting data realtime from the firebase database
+    function GetAllDataRealtime() {
+      const dbRef = ref(db, "user/");
+
+      onValue(dbRef, (snapshot) => {
+        var food = [];
+
+        snapshot.forEach(childSnapshot => {
+          food.push(childSnapshot.val());
+        });
+
+        AddAllItemsToTable(food);
+      })
+
+    }
+
+    window.onload = GetAllDataRealtime
 
   </script>
 </body>

@@ -26,7 +26,7 @@ const db = getDatabase(app);
 
 document.getElementById("submit").addEventListener('click', function (e) {
     e.preventDefault();
-    set(ref(db, 'user/' + document.getElementById("foodbank-center").value),
+    set(ref(db, 'user/' + document.getElementById("food-name").value),
         {
             foodName: document.getElementById("food-name").value,
             foodType: document.getElementById("food-type").value,
@@ -42,7 +42,7 @@ document.getElementById("submit").addEventListener('click', function (e) {
             donorEmail: document.getElementById("donor-email").value,
         });
         
-    alert("Food donation request successfully made... Proceed to make donation to the center chosen. Thank you for your donation. ")
+    alert("Thank you for successful food donation. Please proceed to donate food to the center. ")
 
 })
 

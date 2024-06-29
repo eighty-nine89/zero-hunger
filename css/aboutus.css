@@ -103,6 +103,9 @@ body{
     .navbar-toggler {
         place-items: end;
     }
+    .aboutus_img img{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 520px) {
@@ -117,6 +120,8 @@ body{
 /* About us image */
 .aboutus_img img{
     width:100%;
+    height: 30rem;
+    object-fit: cover;
   }
 /* Our Team */
 div.heading{
