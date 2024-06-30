@@ -43,7 +43,6 @@ document.getElementById("submit").addEventListener('click', function (e) {
         });
 
     alert("Thank you for successful food donation. Please proceed to donate food to the center. ",)
-    onsubmit=setTimeout(function () { window.location.reload(); }, 10)
 })
 
 const analytics = getAnalytics(app);
