@@ -41,9 +41,9 @@ document.getElementById("submit").addEventListener('click', function (e) {
             donorPhonenumber: document.getElementById("donor-phone").value,
             donorEmail: document.getElementById("donor-email").value,
         });
-        
-    alert("Thank you for successful food donation. Please proceed to donate food to the center. ")
 
+    alert("Thank you for successful food donation. Please proceed to donate food to the center. ",)
+    onsubmit=setTimeout(function () { window.location.reload(); }, 10)
 })
 
 const analytics = getAnalytics(app);
