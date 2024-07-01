@@ -144,7 +144,7 @@
     function GetAllDataOnce() {
       const dbRef = ref(db);
 
-      get(child(dbRef, "user/'Brunei Complex, KNUST"))
+      get(child(dbRef, "user/Brunei Complex, KNUST"))
         .then((snapshot) => {
           var food = [];
 
@@ -158,7 +158,7 @@
 
     // Getting data realtime from the firebase database
     function GetAllDataRealtime() {
-      const dbRef = ref(db, "user/'Brunei Complex, KNUST");
+      const dbRef = ref(db, "user/Brunei Complex, KNUST");
 
       onValue(dbRef, (snapshot) => {
         var food = [];

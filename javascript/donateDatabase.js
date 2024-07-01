@@ -26,7 +26,7 @@ const db = getDatabase(app);
 
 document.getElementById("submit").addEventListener('click', function (e) {
     e.preventDefault();
-    set(ref(db, `user/'${document.getElementById("foodbank-center").value}/${document.getElementById("food-name").value}`),
+    set(ref(db, `user/${document.getElementById("foodbank-center").value}/${document.getElementById("donor-name").value}`),
         {
             foodName: document.getElementById("food-name").value,
             foodType: document.getElementById("food-type").value,
