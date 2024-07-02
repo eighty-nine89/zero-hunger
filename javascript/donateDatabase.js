@@ -21,7 +21,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-//getting ref to database services
+//getting reference (ref) to database services
 const db = getDatabase(app);
 
 document.getElementById("submit").addEventListener('click', function (e) {
