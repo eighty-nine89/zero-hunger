@@ -189,7 +189,7 @@ body {
 .form-heading-row h1 {
     font-size: 1.6rem;
 }
-/* Button */
+/*Submit Button */
 .my-form__button {
     background-color: var(--primary);
     color: white;

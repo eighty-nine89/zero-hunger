@@ -1,0 +1,231 @@
+/* Body */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* Header */
+.navbar-nav{
+    margin-right: 10rem;
+}
+.nav-item a::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    background-color: #209CEE;
+    margin: auto;
+    display: block;
+    border-radius: 50px;
+}
+
+.nav-item a:hover::after {
+    width: 100%;
+    transition: width 0.3s linear;
+}
+/* title */
+/* .heading{
+    display: inline-flex;
+    gap: 10px;
+    width: 100px;
+    height: 100px;
+    margin-top: -400rem; 
+} */
+ /* .container-fluid .row-header{
+    display: inline-flex;
+    white-space: nowrap;
+    margin-bottom: -5rem;
+ } */
+ /* div.heading h3{
+    margin-top: 7rem;
+    text-align: center;
+ } */
+ .row-header img{
+    width: 10rem;
+    height: 10rem;
+ }
+ div.image-header{
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: -2rem;
+ }
+/* Logo */
+#logo {
+    display: inline-block;
+    margin-left: 15px;
+    cursor: pointer;
+    font-size: 23px;
+    font-weight: bolder;
+    color: black;
+    z-index: 1;
+}
+
+#logo:hover {
+    color: #209CEE;
+}
+
+#logo-s {
+    font-weight: light;
+    color: #209CEE;
+}
+
+#logo:hover #logo-s {
+    color: #209CEE;
+}
+
+#logo-s:hover #logo {
+    color: black;
+}
+@media screen and (max-width:800px) {
+   .navbar-nav{
+    align-items: center;
+    margin-right: 0rem;
+   }
+}
+
+@media screen and (max-width: 520px) {
+    .navbar-nav{
+        align-items: center;
+        margin-right: 0rem;
+       }
+}
+/* Billing and Payment form */
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin-bottom: -50px;
+}
+.container form{
+    width: 700px;
+    padding: 40px;
+    background: #f3f2f2;
+    border-radius: 10px;
+}
+form .row {
+    display: flex;
+    gap: 15px;
+}
+.row .column {
+    flex:  1 1 250px;
+}
+.column .title {
+    font-size: 20px;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+.column .input-box{
+    margin: 15px 0;
+}
+.input-box span{
+    display: block;
+    margin-bottom: 10px;
+}
+.input-box input{
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+.column .flex {
+    display: flex;
+    gap: 15px;
+}
+.flex .input-box {
+    margin-top: 5px;
+}
+form .button1 {
+    width: 100%;
+    padding: 12px;
+    background: #209CEE;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    font-size: 17px;
+    color: black;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+form .button1:hover{
+    background: #1F2346;
+    color: white;
+}
+/* footer */
+.footer{
+    margin-top: 80px;
+    background-color: black;
+    width: 100%;
+}
+.foot{
+    padding: 20px 0;
+}
+.footer-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+}
+.footlinks h4{
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 30px;
+    position: relative;
+}
+.footlinks h4::before{
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 70px;
+    left: 0;
+    bottom: -7px;
+    background: white;
+}
+.footlinks ul li{
+    margin-bottom: 15px;
+}
+.footlinks ul li a{
+    font-size: 17px;
+    color: #dddddd;
+    display: block;
+    transition: ease 0.30s;
+    text-decoration: none;
+}
+.footlinks ul li a:hover{
+    transform: translate(6px);
+    color: white;
+}
+.social a{
+    font-size: 25px;
+    margin: 4px;
+    height: 40px;
+    width: 40px;
+    color: black;
+    background-color: white;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    transition: ease 0.30s;
+    text-decoration: none;
+}
+.social a:hover{
+    transform: scale(1.2);
+    color: #209CEE;
+}
+.end{
+    text-align: center;
+    padding-top: 60px;
+    padding-bottom: 12px;
+}
+.end p{
+    font-size: 15px;
+    color: white;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
