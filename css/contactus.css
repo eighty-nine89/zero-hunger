@@ -114,6 +114,14 @@ body{
         place-items: end;
     }
 }
+/* image title*/
+div.image-header{
+    text-align: center;
+}
+.image-header img{
+    margin-top: -2rem;
+    margin-bottom: -7rem;
+}
 /* Contact Us Form */
 .heading h3{
     font-size: 20px;

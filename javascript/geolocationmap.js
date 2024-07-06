@@ -52,7 +52,7 @@ class Geolocation {
             position.coords.latitude,
             position.coords.longitude
         ]).addTo(map) // add a marker to the map
-            .bindPopup('User Position')
+            .bindPopup('Your Current Location')
             .openPopup();
 
         // when a red marker icon is for user position

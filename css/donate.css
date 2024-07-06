@@ -288,29 +288,8 @@ textarea {
     .my-form{
         margin-bottom: -9rem;
     }
-    .info-side {
-        display: none;
-        padding: 48px 48px 48px 32px;
-    }
-}
-/* side image to a form */
-/* .info-side {
-    height: 100vh;
-    padding: 248px 12px 8px 12px;
-    color: #401B3D;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    background: linear-gradient(92.15deg, 
-        #B492FD 30.13%, #ad4ef5 95.43%);
-}
 
-.info-side img {
-    max-width: 360px;
-    z-index: 1;
-} */
+}
 /* footer */
 .footer{
     background-color: black;

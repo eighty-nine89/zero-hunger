@@ -89,6 +89,10 @@
         margin-right: 0rem;
        }
 }
+/* image title*/
+.image-header img{
+    margin-bottom: -3rem;
+}
 /* Billing and Payment form */
 .container{
     display: flex;
@@ -96,6 +100,7 @@
     align-items: center;
     min-height: 100vh;
     margin-bottom: -50px;
+    padding: 25px;
 }
 .container form{
     width: 700px;
@@ -106,6 +111,7 @@
 form .row {
     display: flex;
     gap: 15px;
+    flex-wrap: wrap;
 }
 .row .column {
     flex:  1 1 250px;
@@ -136,6 +142,11 @@ form .row {
 }
 .flex .input-box {
     margin-top: 5px;
+}
+.input-box img{
+    height: 34px;
+    margin-top: 5px;
+    filter: drop-shadow( 0 0 1px #000);
 }
 form .button1 {
     width: 100%;
