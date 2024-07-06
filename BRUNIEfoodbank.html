@@ -38,7 +38,7 @@
       </div>
       <!-- Fund Us Button -->
       <span class="background">
-        <a href="findus.html" class='button'>
+        <a href="fundus.html" class='button'>
           <svg>
             <rect x="0" y="0" fill="none" width="100%" height="100%" />
           </svg>
@@ -51,22 +51,20 @@
   <div class="container-fluid mt-5">
     <div class="row">
       <div class="heading mt-3">
-        <h4>Brunie Food Bank, KNUST - Food Bank</h3>
+        <h4>BRUNIE COMPLEX, KNUST - FOOD BANK</h3>
       </div>
     </div>
   </div>
   <!--food display table -->
   <div class="container mt-3">
     <div class="row">
-      <table class="table">
+      <table class="table bg-dark text-white">
         <thead>
-          <th>Item No.</th>
-          <th>Name of food</th>
-          <th>Food type</th>
-          <th>Food Bank Center</th>
-          <!-- <th>Picture of item</th> -->
-          <th>Food details</th>
-          <th>Request food</th>
+          <th>NAME OF FOOD</th>
+          <th>FOOD TYPE</th>
+          <th>PICTURE OF FOOD</th>
+          <th>FOOD DETAILS</th>
+          <th>REQUEST FOOD</th>
         </thead>
         <tbody id="tbody1"></tbody>
       </table>
@@ -80,41 +78,33 @@
     // document.innerHTML = request.link("https://developer.mozilla.org/");
     var tbody = document.getElementById("tbody1");
 
-    function AddItemToTable(foodName, foodType, foodbankCenter, foodPicture, foodMessage) {
+    function AddItemToTable(foodName, foodType, foodPicture, foodMessage) {
       let trow = document.createElement("tr");
       let td1 = document.createElement("td");
       let td2 = document.createElement("td");
       let td3 = document.createElement("td");
       let td4 = document.createElement("td");
-      // let td5 = document.createElement("td");
-      let td6 = document.createElement("td");
-      let td7 = document.createElement("td");
+      let td5 = document.createElement("td");
 
-      td1.innerHTML = ++foodNo;
-      td2.innerHTML = foodName;
-      td3.innerHTML = foodType;
-      td4.innerHTML = foodbankCenter;
-      // td5.innerHTML = foodPicture;
-      td6.innerHTML = foodMessage;
-      td7.innerHTML = request;
+      td1.innerHTML = foodName;
+      td2.innerHTML = foodType;
+      td3.innerHTML = foodPicture;
+      td4.innerHTML = foodMessage;
+      td5.innerHTML = request;
 
       trow.appendChild(td1);
       trow.appendChild(td2);
       trow.appendChild(td3);
       trow.appendChild(td4);
-      // trow.appendChild(td5);
-      trow.appendChild(td6);
-      trow.appendChild(td7);
-
+      trow.appendChild(td5);
 
       tbody.appendChild(trow);
     }
 
     function AddAllItemsToTable(Thefood) {
-      foodNo = 0;
       tbody.innerHTML = "";
       Thefood.forEach(element => {
-        AddItemToTable(element.foodName, element.foodType, element.foodbankCenter, element.foodPicture, element.foodMessage);
+        AddItemToTable(element.foodName, element.foodType, element.foodPicture, element.foodMessage);
       });
     }
 

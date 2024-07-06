@@ -37,7 +37,7 @@ class Geolocation {
             .on("click", ()=>{window.open("COMCENfoodbank.html", "_blank")});
         // adding map marker to the map
         L.marker([6.675465398222645, -1.5667430679775691]).addTo(map)
-            .bindTooltip('Faculty of Agric, KNUST. (Food Bank)').openTooltip()
+            .bindTooltip('College of Agriculture, KNUST. (Food Bank)').openTooltip()
             .on("click", ()=>{window.open("AGRICfoodbank.html", "_blank")});
         // adding map marker to the map
         L.marker([6.682683444352829, -1.5760730753687446]).addTo(map)
@@ -56,13 +56,20 @@ class Geolocation {
             .openPopup();
 
         // when a red marker icon is for user position
+        // var myIcon = L.icon({
+        //     iconUrl: 'images/marker.png',
+        //     iconSize: [38, 95],
+        //     iconAnchor: [22, 94],
+        //     popupAnchor: [-3, -76],
+        // });
         // const marker = L.marker([
         //     position.coords.latitude,
         //     position.coords.longitude
         // ], { icon: myIcon }).addTo(map) // add a marker to the map
         //     .bindPopup('User Position')
         //     .openPopup();
-        marker.addEventListener("click", function(){ alert("This is user current position."); });
+
+        // marker.addEventListener("click", function(){ alert("Your current location."); });
     }
     // on error
     errorCallback(error) {
