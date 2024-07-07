@@ -1,0 +1,67 @@
+/* Body */
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Logo */
+#logo {
+    display: inline-block;
+    margin-left: 50px;
+    cursor: pointer;
+    font-size: 23px;
+    font-weight: bolder;
+    color: black;
+    z-index: 1;
+}
+
+#logo:hover {
+    color: #209CEE;
+}
+
+#logo-s {
+    font-weight: light;
+    color: #209CEE;
+}
+
+#logo:hover #logo-s {
+    color: #209CEE;
+}
+
+#logo-s:hover #logo {
+    color: black;
+}
+/* title */
+.my-header h2{
+    text-transform: uppercase;
+    font-weight: bolder;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+/* Divider line */
+.divider {
+    display: flex;
+    flex-direction: row;
+    color: black;
+    gap: 16px;
+    align-items: center;
+}
+
+.divider-line {
+    width: 100%;
+    height: 1px;
+    background-color: black;
+    opacity: .2;
+}
+/* terms and conditions */
+.mytermsandconditions{
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+}
+.heading{
+    font-weight: lighter;
+    font-size: 24px;
+}
