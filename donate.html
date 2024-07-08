@@ -16,7 +16,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" href="https://fonts.gstatic.com"
     crossorigin>
-    <!-- Validation css -->
+  <!-- Validation css -->
   <style>
     ul[role=alert] {
       color: red;
@@ -72,7 +72,8 @@
         <!-- item name -->
         <div class="text-field">
           <label for="food-name">Name of Food
-            <input type="text" id="food-name" name="food-name" autocomplete="on" class="controls" spellcheck="true" placeholder="" required>
+            <input type="text" id="food-name" name="food-name" autocomplete="on" class="controls" spellcheck="true"
+              placeholder="" required>
           </label>
         </div>
         <!-- item type -->
@@ -110,9 +111,11 @@
         <!-- Food bank centers -->
         <div class="text-field">
           <label class="required" for="foodbank-center">FoodBank Center</label>
-          <select name="foodbank-center" id="foodbank-center" placeholder="Select foodbank center for donation" class="controls" required>
+          <select name="foodbank-center" id="foodbank-center" placeholder="Select foodbank center for donation"
+            class="controls" required>
             <option value="Food Bank center, KNUST">Food Bank center, KNUST</option>
-            <option value="Food science department, College of Science, KNUST">Food science department, College of Science, KNUST</option>
+            <option value="Food science department, College of Science, KNUST">Food science department, College of
+              Science, KNUST</option>
             <option value="Faculty of Agriculture, KNUST">College of Agriculture, KNUST</option>
             <option value="Community Center, KNUST">Community Center, KNUST</option>
             <option value="Brunei Complex, KNUST">Brunei Complex, KNUST</option>
@@ -121,7 +124,8 @@
         <!-- pick up date -->
         <div class="text-field">
           <label for="donatedate">Available date for donation
-            <input type="date" id="donatedate" name="donatedate" autocomplete="off" placeholder="" class="controls" required>
+            <input type="date" id="donatedate" name="donatedate" autocomplete="off" placeholder="" class="controls"
+              required>
           </label>
         </div>
         <!-- pickup time -->
@@ -137,42 +141,57 @@
           </label>
         </div>
         <!-- additional textarea box -->
-        <textarea class="controls" maxlength="125" name="message" id="message" Message spellcheck="true" autocapitalize="true" autocomplete="on"
-          placeholder="Additioal details of item" title="Must contain a maximum of 125 characters" required></textarea>
-         
-          <!-- divider line -->
-          <div class="divider mt-3">
-            <div class="divider-line"></div>
-          </div>
-           <!-- contact details -->
-           <div class="form-heading-row">
-            <h1 style="text-align: center;">Contact Details</h1>
-          </div> 
-          <!-- donor name -->
+        <textarea class="controls" maxlength="125" name="message" id="message" Message spellcheck="true"
+          autocapitalize="true" autocomplete="on" placeholder="Additioal details of item"
+          title="Must contain a maximum of 125 characters" required></textarea>
+
+        <!-- divider line -->
+        <div class="divider mt-3">
+          <div class="divider-line"></div>
+        </div>
+        <!-- contact details -->
+        <div class="form-heading-row">
+          <h1 style="text-align: center;">Contact Details</h1>
+        </div>
+        <!-- donor name -->
         <div class="text-field">
           <label for="donor-name">Name of Donor
-            <input type="text" id="donor-name" name="donor-name" autocomplete="on" spellcheck="true" placeholder="" class="controls" required>
+            <input type="text" id="donor-name" name="donor-name" autocomplete="on" spellcheck="true" placeholder=""
+              class="controls" required>
           </label>
         </div>
         <!-- Donor phone number -->
         <div class="text-field">
           <label for="donor-phone">Phone number
-            <input type="tel" id="donor-phone" name="donor-phone" placeholder="" class="controls" maxlength="10" required>
+            <input type="tel" id="donor-phone" name="donor-phone" placeholder="" class="controls" maxlength="10"
+              required>
           </label>
           <!-- pattern="^A-Za-z" -->
         </div>
         <!-- item name -->
         <div class="text-field">
           <label for="donor-email">Email of Donor
-            <input type="text" id="donor-email" name="donor-email"  placeholder="" >
+            <input type="text" id="donor-email" name="donor-email" placeholder="">
           </label>
         </div>
-         <!-- submit button -->
+        <!-- submit button -->
         <button type="submit" id="submit" value="submit" class="my-form__button">
           Donate Item
         </button>
       </form>
     </div>
+    <!-- side info gif -->
+    <div class="info-side">
+      <img src="images/fooddonation.jpg" alt="animated gif donation" class="mockup-image" />
+      <!-- <video width="320" height="240" controls>
+        <source src="video/FoodDonation.mp4" type="video/mp4">
+        <source src="video/FoodDonation.mp4" type="video/ogg">
+      Your browser does not support the video tag.
+      </video> -->
+    </div>
+    <!-- <div class="donate-image">
+    <img src="images/fooddonation1.jpg" alt="animated gif donation" style="width: 100%; height: 100%;" class="donate-image1" />
+  </div> -->
   </div>
   <!-- footer -->
   <div class="myfooter">
