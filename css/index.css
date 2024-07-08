@@ -451,6 +451,7 @@ summary:hover .expand-icon {
     padding: 0.2em 1em 1em 1em;
     font-weight: 300;
     line-height: 1.5;
+    font-weight: bold;
 }
   
 .expand-icon {
