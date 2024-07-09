@@ -170,9 +170,6 @@ body {
     .info-side img{
         display: none;
     }
-    .footer{
-        display: flex;
-    }
     .form-wrapper {
         grid-template-columns: 1fr;
         /* height: 100vh; */
@@ -188,9 +185,6 @@ body {
     }
     .info-side img{
         display: none;
-    }
-    .footer{
-        display: flex;
     }
     .form-wrapper {
         grid-template-columns: 1fr;
@@ -347,10 +341,14 @@ textarea {
     font-size: 14px;
     border-radius: 10px;
 }
-
+/* footer resolution for mobile */
+@media screen and (min-width: 840px) {
+    .footer{
+        display: none;
+    }
+}
 /* footer */
 .footer{
-    display: none;
     background-color: black;
     width: 100%;
 }
