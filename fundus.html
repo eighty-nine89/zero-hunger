@@ -52,7 +52,7 @@
 
     <!-- payment form -->
     <div class="container mt-5">
-        <form action="">
+        <form action="" id="paymentForm">
             <div class="row">
                 <div class="column">
                     <h3 class="title">Billing Address</h3>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="input-box">
                         <span>Email:</span>
-                        <input type="email" placeholder="">
+                        <input type="email" id="email" placeholder="">
                     </div>
                     <div class="input-box">
                         <span>Address:</span>
@@ -87,10 +87,10 @@
 
                 <div class="column">
                     <h3 class="title">Payment</h3>
-                    <div class="input-box">
+                    <!-- <div class="input-box">
                         <span>Card Accepted:</span>
                         <img src="images/imgcards.png" alt="credit cards accepted">
-                    </div>
+                    </div> -->
                     <div class="input-box">
                         <span>Name on Card:</span>
                         <input type="text" placeholder="">
@@ -98,6 +98,10 @@
                     <div class="input-box">
                         <span>Credit Card Number:</span>
                         <input type="text" placeholder="">
+                    </div>
+                    <div class="input-box">
+                        <span>Amount:</span>
+                        <input type="tel" placeholder="" id="amount">
                     </div>
                     <div class="input-box">
                         <span>Expiry Month:</span>
@@ -117,7 +121,7 @@
                 </div>
             </div>
             <!-- submit button -->
-            <button type="submit" class="button1">Submit</button>
+            <button type="submit" class="button1" onclick="payWithPaystack()">Pay</button>
         </form>
     </div>
     <!DOCTYPE html>
@@ -160,6 +164,9 @@
             </div>
         </section>
     </div>
+    <!-- scripts -->
+    <script src="https://js.paystack.co/v1/inline.js"></script> 
+    <script src="javascript/payment.js"></script>
 </body>
 
 </html>
