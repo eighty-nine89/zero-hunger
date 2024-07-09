@@ -155,37 +155,71 @@ body {
     justify-content: start;
     align-items: center;
     flex-grow: 1;
-    position: sticky;
-    margin-left: 45rem;
+    position: fixed;
+    margin-left: 50rem;
 }
 
-.info-side img {
+.info-side img{
     max-width: 860px;
-    position: sticky;
 }
-/* .donate-image1{
-    height: 100vh;
+/* mobile resolution */
+@media screen and (max-width:840px) {
+    .info-side{
+        display: none;
+    }
+    .info-side img{
+        display: none;
+    }
+    .footer{
+        display: flex;
+    }
+    .form-wrapper {
+        grid-template-columns: 1fr;
+        /* height: 100vh; */
+        max-width: 1900px;
+    }
+    .my-form{
+        margin-bottom: -9rem;
+    }
+}
+@media screen and (max-width: 520px) {
+    .info-side{
+        display: none;
+    }
+    .info-side img{
+        display: none;
+    }
+    .footer{
+        display: flex;
+    }
+    .form-wrapper {
+        grid-template-columns: 1fr;
+        /* height: 100vh; */
+        max-width: 1900px;
+    }
+    .my-form{
+        margin-bottom: -9rem;
+    }
+}
+/* second side image gif  */
+/* .donate-image{
+    display: flex;
+    flex-direction: column;
     padding: 0px 48px 48px 32px;
     display: flex;
     overflow: hidden;
     flex-direction: column;
     justify-content: start;
-    align-items: center;
-    flex-grow: 1;
-    background-attachment: fixed;
-    background-repeat: repeat-y;
 }
-.donate-image1 img{
-    max-width: 360px;
-    width: 200;
-    height: 200;
+.donate-image1{
+    margin-left: 800px;
 } */
 /* Form */
 .form-wrapper {
     position: relative;
     display: grid;
     grid-template-columns: 3fr 3fr;
-    max-width: 1600px;
+    max-width: 1800px;
     justify-content: center;
 }
 
@@ -314,23 +348,11 @@ textarea {
     border-radius: 10px;
 }
 
-@media (max-width: 840px) {
-    .form-wrapper {
-        grid-template-columns: 1fr;
-        /* height: 100vh; */
-    }
-    .my-form{
-        margin-bottom: -9rem;
-    }
-
-}
-
 /* footer */
 .footer{
+    display: none;
     background-color: black;
     width: 100%;
-    position: fixed;
-    margin-top: -200rem;
 }
 .foot{
     padding: 20px 0;
