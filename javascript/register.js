@@ -43,7 +43,7 @@ submit.addEventListener("click", function (event) {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert("Firebase: Error(Auth, Invalid-user inputs/email/password).")
+      alert("Firebase: Error(Auth, Invalid user invalid email/password), Existing email.")
       // ..
     });
 
