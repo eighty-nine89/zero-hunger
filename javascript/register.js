@@ -35,7 +35,7 @@ submit.addEventListener("click", function (event) {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed up 
-      const user = userCredential.user;
+      const user = userCredential.user.uid;
       alert("Account successfully created...")
       window.location.href = "login.html"; //redirecting to login page
       // ...
@@ -43,7 +43,10 @@ submit.addEventListener("click", function (event) {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert("Firebase: Error(Auth, Invalid user invalid email/password), Existing email.")
+      alert(errorMessage);
+      console.log(errorCode);
+      console.log(errorCode);
+      // alert("Firebase: Error(Auth, Invalid user invalid email/password), Existing email.")
       // ..
     });
 

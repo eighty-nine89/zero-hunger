@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,6 +22,8 @@ const app = initializeApp(firebaseConfig);
 // Sign in with google
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider(app);
+// forgot password 
+let ForgotPassLabel = document.getElementById('forgotpasslabel');
 // google sign in button id
 login.addEventListener('click', (e) => {
     // signInWithRedirect(auth, provider);
@@ -85,7 +87,7 @@ submit.addEventListener("click", function (event) {
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed up 
-            const user = userCredential.user;
+            const user = userCredential.user.uid;
             alert("Log in successful...")
             window.location.href = "index.html";
             // ...
@@ -93,8 +95,24 @@ submit.addEventListener("click", function (event) {
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            alert(errorMessage)
+            alert(errorMessage);
+            alert(errorMessage);
+            console.log(errorCode);
+            console.log(errorCode);
             // ..
         });
 
 })
+
+let ForgotPassword = ()=>{
+  sendPasswordResetEmail(auth, email.value)
+  .then(()=>{
+    alert("A Password Reset has been sent to your email");
+  })
+  .catch((error)=>{
+    console.log(error.code);
+    console.log(error.message);
+  })
+}
+
+ForgotPassLabel.addEventListener('click', ForgotPassword);
