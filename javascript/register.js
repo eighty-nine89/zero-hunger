@@ -22,22 +22,42 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-//submit field from signup document
+// Function to validate the full name
+function validateFullName(fullName) {
+  if (!fullName || fullName.trim() === '') {
+    return "Full name cannot be empty";
+  }
+
+  // Add more validation checks if needed
+  // e.g., regex for valid name format
+
+  return null; // No errors
+}
+
+// Submit event listener
 const submit = document.getElementById('submit');
 submit.addEventListener("click", function (event) {
-  event.preventDefault() //prevent page from refreshing upon clicking submit button
+  event.preventDefault(); // Prevent page from refreshing upon clicking submit button
 
-  //input fields from signup document
+  // Input fields from signup document
+  const fullName = document.getElementById('fullname').value;
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
+
+  // Validate full name
+  const fullNameError = validateFullName(fullName);
+  if (fullNameError) {
+    alert(fullNameError);
+    return; // Do not proceed if full name is invalid
+  }
 
   const auth = getAuth();
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed up 
+      // Signed up
       const user = userCredential.user.uid;
-      alert("Account successfully created...")
-      window.location.href = "login.html"; //redirecting to login page
+      alert("Account successfully created...");
+      window.location.href = "login.html"; // Redirecting to login page
       // ...
     })
     .catch((error) => {
@@ -46,8 +66,5 @@ submit.addEventListener("click", function (event) {
       alert(errorMessage);
       console.log(errorCode);
       console.log(errorCode);
-      // alert("Firebase: Error(Auth, Invalid user invalid email/password), Existing email.")
-      // ..
     });
-
-})
+});
