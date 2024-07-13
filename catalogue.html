@@ -12,9 +12,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-    <!-- script -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
 </head>
 
 <body>
@@ -22,12 +23,11 @@
     <nav class="navbar navbar-expand-sm bg-white text-dark justify-content-center fixed-top">
         <div class="container-fluid justify-content-space-between">
             <div id="logo">zero<a class="navbar-brand" href="index.html" translate="no" id="logo-s">Hunger</a></div>
-            <button class="navbar-toggler hide border-white" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapsibleNavbar">
+            <button class="navbar-toggler hide border-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
-               <ul class="navbar-nav align-items-center fw-bold" style="text-transform: uppercase;">
+                <ul class="navbar-nav align-items-center fw-bold" style="text-transform: uppercase;">
                     <li class="nav-item" style="white-space: nowrap;">
                         <a class="nav-link" href="donate.html">Donate</a>
                     </li>
@@ -39,7 +39,6 @@
                     </li>
                 </ul>
             </div>
-            <!-- Fund Us Button -->
             <span class="background">
                 <a href="fundus.html" class='button'>
                     <svg>
@@ -50,36 +49,131 @@
             </span>
         </div>
     </nav>
-    </div>
-    </nav>
-    <!-- heading -->
-    <!-- <div class="container-fluid mt-5">
-        <div class="row">
-            <div class="myheading mt-3">
-                <h2>REQUEST FOOD</h2>
-            </div>
-        </div>
-    </div> -->
+
     <!-- Map integration -->
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="geoMap">
-                <!-- <button type="button" id="showPosition" class="mt-5">request food</button> -->
                 <div id="result"></div>
-                <div id="map"></div>
+                <div id="map" style="height: 500px;"></div>
+                <div id="search-container" style="display: none;">
+                    <form id="search-form">
+                        <input type="search" id="search-input" placeholder="Search by food">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-   
-</body>
 
-<script src="javascript/geolocationmap.js"></script>
-<script>
-    addEventListener("DOMContentLoaded", event => {
-        let result = document.querySelector("#result")
-        result.style.display = "block"
-        new Geolocation().showPosition()
-    }) 
-</script>
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+    apiKey: "AIzaSyA1sfm2XVLTPEbIVeUAVMvXRV_tFTUyffw",
+    authDomain: "zerohunger-f7417.firebaseapp.com",
+    databaseURL: "https://zerohunger-f7417-default-rtdb.firebaseio.com",
+    projectId: "zerohunger-f7417",
+    storageBucket: "zerohunger-f7417.appspot.com",
+    messagingSenderId: "477597863714",
+    appId: "1:477597863714:web:187661d1cb7c74ed1b1f7b",
+    measurementId: "G-7B1F5S2TJB"
+  };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        class Geolocation {
+            successCallback(position) {
+                let result = document.querySelector("#result");
+                result.style.display = "block";
+                let mapContainer = document.querySelector("#map");
+                mapContainer.style.display = "block";
+                const map = L.map("map").setView([position.coords.latitude, position.coords.longitude], 14.5);
+                const tiles = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                }).addTo(map);
+
+                const foodBanks = [
+                    { coords: [6.673164749452684, -1.5674784750938933], name: 'COSfoodbank.html' },
+                    { coords: [6.686903051808014, -1.566822804204397], name: 'COMCENfoodbank.html' },
+                    { coords: [6.675465398222645, -1.5667430679775691], name: 'AGRICfoodbank.html' },
+                    { coords: [6.682683444352829, -1.5760730753687446], name: 'FOODBANK.html' },
+                    { coords: [6.6691961538699625, -1.5744769654935014], name: 'BRUNIEfoodbank.html' }
+                ];
+
+                foodBanks.forEach(foodBank => {
+                    L.marker(foodBank.coords).addTo(map)
+                        .bindTooltip(`${foodBank.name.replace('.html', '').replace(/foodbank/gi, ' Food Bank')}`).openTooltip()
+                        .on("click", () => {
+                            showSearchBar(foodBank.name);
+                        });
+                });
+
+                L.marker([position.coords.latitude, position.coords.longitude]).addTo(map)
+                    .bindPopup('Your Current Location')
+                    .openPopup();
+            }
+
+            errorCallback(error) {
+                let result = document.querySelector("#result");
+                result.style.display = "block";
+                if (error.code == 1) {
+                    result.innerText = "You have not given permission to access your location.";
+                } else if (error.code == 2) {
+                    result.innerText = "Your location is unavailable.";
+                } else if (error.code == 3) {
+                    result.innerText = "The request to get your location timed out.";
+                } else {
+                    result.innerText = "An unknown error occurred.";
+                }
+            }
+
+            showPosition() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(this.successCallback.bind(this), this.errorCallback);
+                } else {
+                    alert('Your browser does not support geolocation');
+                }
+            }
+        }
+
+        addEventListener("DOMContentLoaded", event => {
+            new Geolocation().showPosition();
+        });
+
+        function showSearchBar(foodBankName) {
+            const searchContainer = document.querySelector("#search-container");
+            searchContainer.style.display = "block";
+            const searchForm = document.querySelector("#search-form");
+            searchForm.onsubmit = function (event) {
+                event.preventDefault();
+                const query = document.querySelector("#search-input").value;
+                searchFood(foodBankName, query);
+            };
+        }
+
+        function searchFood(foodBankName, query) {
+            const dbRef = firebase.database().ref('foodBanks/' + foodBankName.replace('.html', ''));
+            dbRef.orderByChild('name').equalTo(query).once('value', snapshot => {
+                if (snapshot.exists()) {
+                    const foodData = snapshot.val();
+                    displaySearchResults(foodData, foodBankName, query);
+                } else {
+                    displayNoResults(foodBankName);
+                }
+            });
+        }
+
+        function displaySearchResults(foodData, foodBankName, query) {
+            const foodBankPage = `${foodBankName}?results=${encodeURIComponent(JSON.stringify(foodData))}&query=${encodeURIComponent(query)}`;
+            window.location.href = foodBankPage;
+        }
+
+        function displayNoResults(foodBankName) {
+            const foodBankPage = `${foodBankName}?results=none`;
+            window.location.href = foodBankPage;
+        }
+    </script>
+</body>
 
 </html>
