@@ -99,7 +99,10 @@ body{
     .background{
         display: none;
     }
-
+    .image-header img{
+        height: 50%;
+        width: 50%;
+    }
     .navbar-toggler {
         place-items: end;
     }
