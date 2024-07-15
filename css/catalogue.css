@@ -212,7 +212,7 @@ body {
 } */
 /* Map integrartion*/
 #map {
-    height: 91vh;
+    height: 120vh;
     display: none;
     /* zoom: 1.1; */
 }
