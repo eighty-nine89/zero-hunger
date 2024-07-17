@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,7 +46,7 @@
             font-size: 1rem;
             margin-right: 10px;
         }
-        #search-input:focus{
+        #search-input:focus {
             border-color: 2px solid #209CEE;
         }
         #search-button {
@@ -65,16 +64,13 @@
             background-color: #1F2346;
         }
     </style>
-
 </head>
-
 <body>
     <!-- Header -->
     <nav class="navbar navbar-expand-sm bg-white text-dark justify-content-center fixed-top">
         <div class="container-fluid justify-content-space-between">
             <div id="logo">zero<a class="navbar-brand" href="index.html" translate="no" id="logo-s">Hunger</a></div>
-            <button class="navbar-toggler hide border-white" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapsibleNavbar">
+            <button class="navbar-toggler hide border-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
@@ -141,33 +137,62 @@
             const searchForm = document.querySelector("#search-form");
             searchForm.onsubmit = function (event) {
                 event.preventDefault();
-                const query = document.querySelector("#search-input").value;
-                searchFood(foodBankName, query);
+                const query = document.querySelector("#search-input").value.trim();
+                if (query) {
+                    searchFood(foodBankName, query);
+                } else {
+                    alert("Please enter a food name to search.");
+                }
             };
         });
 
         function searchFood(foodBankName, query) {
-            const dbRef = firebase.database().ref('foodBanks/' + foodBankName.replace('.html', ''));
-            dbRef.orderByChild('name').equalTo(query).once('value', snapshot => {
+            const dbRef = firebase.database().ref('user/' + foodBankName.replace('.html', '').toLowerCase());
+            dbRef.orderByChild('foodName').equalTo(query).once('value', snapshot => {
                 if (snapshot.exists()) {
                     const foodData = snapshot.val();
-                    displaySearchResults(foodData, foodBankName, query);
+                    displaySearchResults(foodData, foodBankName);
                 } else {
-                    displayNoResults(foodBankName, query);
+                    displayNoResults(query);
                 }
             });
         }
 
-        function displaySearchResults(foodData, foodBankName, query) {
+        function displaySearchResults(foodData, foodBankName) {
             const foodItemsContainer = document.querySelector("#food-items");
-            foodItemsContainer.innerHTML = `<p>${foodData[Object.keys(foodData)[0]].name}</p>`;
+            foodItemsContainer.innerHTML = '';
+            for (let key in foodData) {
+                const food = foodData[key];
+                foodItemsContainer.innerHTML += `
+                    <div class="food-item">
+                        <p><strong>Food Name:</strong> ${food.foodName}</p>
+                        <p><strong>Food Type:</strong> ${food.foodType}</p>
+                        <p><strong>Manufactured Date:</strong> ${food.manufacturedDate}</p>
+                        <p><strong>Expiry Date:</strong> ${food.expiryDate}</p>
+                        <p><strong>Donor Name:</strong> ${food.donorName}</p>
+                    </div>
+                    <hr>
+                `;
+            }
+            // Redirect to the specific food bank center webpage
+            const redirectUrl = foodBankName + '.html';
+            window.location.href = redirectUrl + '?searchResults=' + encodeURIComponent(JSON.stringify(foodData));
         }
 
-        function displayNoResults(foodBankName, query) {
+        function displayNoResults(query) {
             const foodItemsContainer = document.querySelector("#food-items");
-            foodItemsContainer.innerHTML = `<p>No food found for "${query}" in ${foodBankName.replace(/foodbank/gi, ' Food Bank').replace('.html', '')}.</p>`;
+            foodItemsContainer.innerHTML = `<p>No food found for "${query}".</p>`;
         }
+
+        // Function to handle search results on redirected page
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchResults = urlParams.get('searchResults');
+            if (searchResults) {
+                const foodData = JSON.parse(decodeURIComponent(searchResults));
+                displaySearchResults(foodData);
+            }
+        });
     </script>
 </body>
-
 </html>
