@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,26 +16,31 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
 
     <style>
-        body, html {
+        body,
+        html {
             height: 100%;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         .container {
             text-align: center;
         }
+
         h1 {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
             color: #333;
         }
+
         #search-form {
             display: inline-block;
             width: 100%;
             max-width: 500px;
         }
+
         #search-input {
             text-align: start;
             margin-bottom: 1.5rem;
@@ -46,9 +52,11 @@
             font-size: 1rem;
             margin-right: 10px;
         }
+
         #search-input:focus {
             border-color: 2px solid #209CEE;
         }
+
         #search-button {
             margin-bottom: 3rem;
             padding: 0.5rem 4rem;
@@ -60,17 +68,20 @@
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         #search-button:hover {
             background-color: #1F2346;
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <nav class="navbar navbar-expand-sm bg-white text-dark justify-content-center fixed-top">
         <div class="container-fluid justify-content-space-between">
             <div id="logo">zero<a class="navbar-brand" href="index.html" translate="no" id="logo-s">Hunger</a></div>
-            <button class="navbar-toggler hide border-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <button class="navbar-toggler hide border-white" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
@@ -114,6 +125,13 @@
     </div>
 
     <script>
+        const mapping = {
+            "AGRICfoodbank": "Faculty of Agriculture, KNUST",
+            "BRUNIEfoodbank": "Brunei Complex, KNUST",
+            "COSfoodbank": "Food science department, College of Science, KNUST",
+            "COMCENfoodbank": "Community Center, KNUST",
+            "FOODBANK": "Food Bank center, KNUST"
+        }
         // Your Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyA1sfm2XVLTPEbIVeUAVMvXRV_tFTUyffw",
@@ -138,6 +156,7 @@
             searchForm.onsubmit = function (event) {
                 event.preventDefault();
                 const query = document.querySelector("#search-input").value.trim();
+                console.log(foodBankName, query)
                 if (query) {
                     searchFood(foodBankName, query);
                 } else {
@@ -145,9 +164,12 @@
                 }
             };
         });
-
+        //Search for food in the firebase realtime database
         function searchFood(foodBankName, query) {
-            const dbRef = firebase.database().ref('user/' + foodBankName.replace('.html', '').toLowerCase());
+            // console.log(firebase.database().ref("user/Faculty of Agriculture, KNUST").)
+            // const dbRef = firebase.database().ref('user/' + foodBankName.replace('.html', '').toLowerCase());
+
+            const dbRef = firebase.database().ref('user/' + mapping[foodBankName.replace(".html", '')]);
             dbRef.orderByChild('foodName').equalTo(query).once('value', snapshot => {
                 if (snapshot.exists()) {
                     const foodData = snapshot.val();
@@ -175,13 +197,13 @@
                 `;
             }
             // Redirect to the specific food bank center webpage
-            const redirectUrl = foodBankName + '.html';
+            const redirectUrl = foodBankName;
             window.location.href = redirectUrl + '?searchResults=' + encodeURIComponent(JSON.stringify(foodData));
         }
 
         function displayNoResults(query) {
             const foodItemsContainer = document.querySelector("#food-items");
-            foodItemsContainer.innerHTML = `<p>No food found for "${query}".</p>`;
+            foodItemsContainer.innerHTML = `<p>Sorry, No food found for "${query}".</p>`;
         }
 
         // Function to handle search results on redirected page
@@ -195,4 +217,5 @@
         });
     </script>
 </body>
+
 </html>
