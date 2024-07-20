@@ -23,10 +23,30 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            background: url('images/donationbackground.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+        .blur-overlay {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* background: inherit; */
+            filter: blur(50px);
+            z-index: 1;
         }
 
         .container {
             text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            z-index: 1;
+            position: relative;
         }
 
         h1 {
@@ -67,15 +87,23 @@
             font-size: 1rem;
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
         }
 
         #search-button:hover {
             background-color: #1F2346;
         }
+
+        #food-bank-name {
+            position: relative;
+            z-index: 2;
+        }
     </style>
 </head>
 
 <body>
+    <div class="blur-overlay"></div>
     <!-- Header -->
     <nav class="navbar navbar-expand-sm bg-white text-dark justify-content-center fixed-top">
         <div class="container-fluid justify-content-space-between">

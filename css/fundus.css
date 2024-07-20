@@ -6,9 +6,10 @@
 }
 
 /* Header */
-.navbar-nav{
+.navbar-nav {
     margin-right: 10rem;
 }
+
 .nav-item a::after {
     content: '';
     width: 0;
@@ -23,6 +24,7 @@
     width: 100%;
     transition: width 0.3s linear;
 }
+
 /* title */
 /* .heading{
     display: inline-flex;
@@ -31,24 +33,26 @@
     height: 100px;
     margin-top: -400rem; 
 } */
- /* .container-fluid .row-header{
+/* .container-fluid .row-header{
     display: inline-flex;
     white-space: nowrap;
     margin-bottom: -5rem;
  } */
- /* div.heading h3{
+/* div.heading h3{
     margin-top: 7rem;
     text-align: center;
  } */
- .row-header img{
+.row-header img {
     width: 10rem;
     height: 10rem;
- }
- div.image-header{
+}
+
+div.image-header {
     text-align: center;
     margin-top: 3rem;
     margin-bottom: -2rem;
- }
+}
+
 /* Logo */
 #logo {
     display: inline-block;
@@ -76,25 +80,38 @@
 #logo-s:hover #logo {
     color: black;
 }
+
 @media screen and (max-width:800px) {
-   .navbar-nav{
-    align-items: center;
-    margin-right: 0rem;
-   }
+    .navbar-nav {
+        align-items: center;
+        margin-right: 0rem;
+    }
 }
 
 @media screen and (max-width: 520px) {
-    .navbar-nav{
+    .navbar-nav {
         align-items: center;
         margin-right: 0rem;
-       }
+    }
 }
+
 /* image title*/
-.image-header img{
-    margin-bottom: -3rem;
+.container-fluid h1 {
+    font-weight: bold;
+    align-items: center;
+    display: inline-flex;
 }
+
+.image-header img {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    margin-bottom: 3rem;
+    place-items: center;
+}
+
 /* Billing and Payment form */
-.container{
+.container {
+    margin-top: -10rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,52 +119,63 @@
     margin-bottom: -50px;
     padding: 25px;
 }
-.container form{
+
+.container form {
     width: 700px;
     padding: 40px;
     background: #f3f2f2;
     border-radius: 10px;
 }
+
 form .row {
     display: flex;
     gap: 15px;
     flex-wrap: wrap;
 }
+
 .row .column {
-    flex:  1 1 250px;
+    flex: 1 1 250px;
 }
+
 .column .title {
     font-size: 20px;
     color: #333;
     text-transform: uppercase;
     margin-bottom: 5px;
 }
-.column .input-box{
+
+.column .input-box {
     margin: 15px 0;
 }
-.input-box span{
+
+.input-box span {
     display: block;
     margin-bottom: 10px;
 }
-.input-box input{
+
+.input-box input {
     width: 100%;
     padding: 10px 15px;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 15px;
 }
+
 .column .flex {
     display: flex;
     gap: 15px;
 }
+
 .flex .input-box {
     margin-top: 5px;
 }
-.input-box img{
+
+.input-box img {
     height: 34px;
     margin-top: 5px;
-    filter: drop-shadow( 0 0 1px #000);
+    filter: drop-shadow(0 0 1px #000);
 }
+
 form .button1 {
     width: 100%;
     padding: 12px;
@@ -161,26 +189,31 @@ form .button1 {
     cursor: pointer;
     transition: .5s;
 }
-form .button1:hover{
+
+form .button1:hover {
     background: #1F2346;
     color: white;
 }
+
 /* footer */
-.footer{
+.footer {
     margin-top: 80px;
     background-color: black;
     width: 100%;
 }
-.foot{
+
+.foot {
     padding: 20px 0;
 }
-.footer-content{
+
+.footer-content {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    
+
 }
-.footlinks h4{
+
+.footlinks h4 {
     margin-top: 30px;
     font-size: 20px;
     font-weight: 600;
@@ -188,7 +221,8 @@ form .button1:hover{
     margin-bottom: 30px;
     position: relative;
 }
-.footlinks h4::before{
+
+.footlinks h4::before {
     content: "";
     position: absolute;
     height: 2px;
@@ -197,21 +231,25 @@ form .button1:hover{
     bottom: -7px;
     background: white;
 }
-.footlinks ul li{
+
+.footlinks ul li {
     margin-bottom: 15px;
 }
-.footlinks ul li a{
+
+.footlinks ul li a {
     font-size: 17px;
     color: #dddddd;
     display: block;
     transition: ease 0.30s;
     text-decoration: none;
 }
-.footlinks ul li a:hover{
+
+.footlinks ul li a:hover {
     transform: translate(6px);
     color: white;
 }
-.social a{
+
+.social a {
     font-size: 25px;
     margin: 4px;
     height: 40px;
@@ -225,16 +263,19 @@ form .button1:hover{
     transition: ease 0.30s;
     text-decoration: none;
 }
-.social a:hover{
+
+.social a:hover {
     transform: scale(1.2);
     color: #209CEE;
 }
-.end{
+
+.end {
     text-align: center;
     padding-top: 60px;
     padding-bottom: 12px;
 }
-.end p{
+
+.end p {
     font-size: 15px;
     color: white;
     letter-spacing: 1px;

@@ -12,6 +12,57 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <style>
+    body {
+      position: relative;
+      background-image: url('images/foodbankdonation.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #000000;
+    }
+
+    .blur-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: inherit;
+      background-size: inherit;
+      background-attachment: inherit;
+      background-position: inherit;
+      background-repeat: inherit;
+      /* filter: blur(10px); */
+      z-index: -1;
+    }
+/* 
+    .container-fluid,
+    .container {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+    } */
+
+    .table {
+      background: rgba(0, 0, 0, 0.7);
+      text-align: center;
+    }
+
+    .table th, .table td {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .heading h4 {
+      text-align: center;
+      color: black;
+    }
+
+    .modal-content {
+      background: rgba(255, 255, 255, 0.9);
+    }
+  </style>
 </head>
 
 <body>
@@ -50,21 +101,21 @@
   <!-- heading -->
   <div class="container-fluid mt-5">
     <div class="row">
-      <div class="heading mt-3">
+      <div class="heading mt-5">
         <h4>COMMUNITY CENTER, KNUST - FOOD BANK</h4>
       </div>
     </div>
   </div>
   <!--food display table -->
-  <div class="container mt-3">
+  <div class="container">
     <div class="row">
-      <table class="table bg-dark text-white">
+      <table class="table text-white">
         <thead>
           <tr>
             <th>NAME OF FOOD</th>
             <th>FOOD TYPE</th>
             <th>PICTURE OF FOOD</th>
-            <th>FOOD DETAILS</th>
+            <!-- <th>FOOD DETAILS</th> -->
             <th>REQUEST FOOD</th>
           </tr>
         </thead>
@@ -118,19 +169,19 @@
     var request = "REQUEST";
     var tbody = document.getElementById("tbody1");
 
-    function AddItemToTable(foodName, foodType, foodPicture, foodMessage) {
+    function AddItemToTable(foodName, foodType, foodPicture) {
       let trow = document.createElement("tr");
       let td1 = document.createElement("td");
       let td2 = document.createElement("td");
       let td3 = document.createElement("td");
-      let td4 = document.createElement("td");
+      // let td4 = document.createElement("td");
       let td5 = document.createElement("td");
       let requestBtn = document.createElement("button");
 
       td1.innerHTML = foodName;
       td2.innerHTML = foodType;
       td3.innerHTML = `<img src="${foodPicture}" alt="${foodName}" style="width: 100px;">`;
-      td4.innerHTML = foodMessage;
+      // td4.innerHTML = foodMessage;
       requestBtn.className = "btn btn-primary";
       requestBtn.innerText = request;
       requestBtn.setAttribute("data-bs-toggle", "modal");
@@ -147,7 +198,7 @@
       trow.appendChild(td1);
       trow.appendChild(td2);
       trow.appendChild(td3);
-      trow.appendChild(td4);
+      // trow.appendChild(td4);
       trow.appendChild(td5);
 
       tbody.appendChild(trow);
@@ -156,7 +207,7 @@
     function AddAllItemsToTable(Thefood) {
       tbody.innerHTML = "";
       Thefood.forEach(element => {
-        AddItemToTable(element.foodName, element.foodType, element.foodPicture, element.foodMessage);
+        AddItemToTable(element.foodName, element.foodType, element.foodPicture);
       });
     }
 
