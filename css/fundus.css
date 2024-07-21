@@ -86,6 +86,12 @@ div.image-header {
         align-items: center;
         margin-right: 0rem;
     }
+    .image-header h1{
+        margin-top: 4rem;
+    }
+    .container form{
+        margin-top: 1rem;
+    }
 }
 
 @media screen and (max-width: 520px) {
@@ -96,7 +102,7 @@ div.image-header {
 }
 
 /* image title*/
-.container-fluid h1 {
+/* .container-fluid h1 {
     font-weight: bold;
     align-items: center;
     display: inline-flex;
@@ -107,11 +113,13 @@ div.image-header {
     flex-wrap: nowrap;
     margin-bottom: 3rem;
     place-items: center;
+} */
+.image-header h1{
+    margin-top: 5rem;
 }
-
 /* Billing and Payment form */
 .container {
-    margin-top: -10rem;
+    margin-top: 0rem;
     display: flex;
     justify-content: center;
     align-items: center;

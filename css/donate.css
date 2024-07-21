@@ -148,7 +148,7 @@ body {
 /* side info gif */
 .info-side {
     height: 100vh;
-    padding: 140px 48px 48px 32px;
+    padding: 0px 48px 48px 32px;
     display: flex;
     overflow: hidden;
     flex-direction: column;
@@ -156,7 +156,8 @@ body {
     align-items: center;
     flex-grow: 1;
     position: fixed;
-    margin-left: 40rem;
+    margin-left: 45rem;
+    justify-content: left;
 }
 
 .info-side img{
