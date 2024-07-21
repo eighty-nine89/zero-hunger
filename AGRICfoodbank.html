@@ -15,7 +15,7 @@
   <style>
     body {
       position: relative;
-      background-image: url('images/foodbankdonation.jpg');
+      background-image: url('images/donationbackground1.jpg');
       background-size: cover;
       background-attachment: fixed;
       background-position: center;
@@ -124,39 +124,47 @@
     </div>
   </div>
 
-  <!-- Request Food Modal -->
-  <div class="modal fade" id="requestFoodModal" tabindex="-1" aria-labelledby="requestFoodModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="requestFoodModalLabel">Request Food</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="requestFoodForm">
-            <div class="mb-3">
-              <label for="recipientName" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="recipientName" required>
-            </div>
-            <div class="mb-3">
-              <label for="recipientEmail" class="form-label">Email</label>
-              <input type="email" class="form-control" id="recipientEmail" required>
-            </div>
-            <div class="mb-3">
-              <label for="recipientPhone" class="form-label">Phone Number</label>
-              <input type="tel" class="form-control" id="recipientPhone" required>
-            </div>
-            <div class="mb-3">
-              <label for="recipientAddress" class="form-label">Address</label>
-              <input type="text" class="form-control" id="recipientAddress" required>
-            </div>
-            <div id="formWarning" class="text-danger" style="display: none;">Please fill out all fields correctly.</div>
-            <button type="submit" class="btn btn-primary">Request Food</button>
-          </form>
-        </div>
+ <!-- Request Food Modal -->
+ <div class="modal fade" id="requestFoodModal" tabindex="-1" aria-labelledby="requestFoodModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="requestFoodModalLabel" style="font-weight: bold;">Request Food</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="requestFoodForm">
+          <div class="mb-3">
+            <label for="recipientName" class="form-label" style="font-weight: bold;">Full Name</label>
+            <input type="text" class="form-control" id="recipientName" placeholder="John Doe" required>
+          </div>
+          <div class="mb-3">
+            <label for="recipientEmail" class="form-label" style="font-weight: bold;">Email</label>
+            <input type="email" class="form-control" id="recipientEmail" placeholder="johndoe@abc.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="recipientPhone" class="form-label" style="font-weight: bold;">Phone Number</label>
+            <input type="tel" class="form-control" id="recipientPhone" maxlength="10" placeholder="0201453322" required>
+          </div>
+          <div class="mb-3">
+            <label for="recipientAddress" class="form-label" style="font-weight: bold;">Address</label>
+            <input type="text" class="form-control" id="recipientAddress" placeholder="" required>
+          </div>
+          <div class="mb-3">
+            <label for="recipientDate" class="form-label" style="font-weight: bold;">Date</label>
+            <input type="date" class="form-control" id="recipientDate" required>
+          </div>
+          <!-- <div class="mb-3">
+            <label for="recipientTime" class="form-label" style="font-weight: bold;">Time for Collection</label>
+            <input type="time" class="form-control" id="recipientTime" required>
+          </div> -->
+          <div id="formWarning" class="text-danger" style="display: none;">Please fill out all fields correctly.</div>
+          <button type="submit" class="btn btn-primary" id="requestfoodbtn">Request Food</button>
+        </form>
       </div>
     </div>
   </div>
+</div>
 
   <!-- Firebase and other configurations -->
   <script type="module">

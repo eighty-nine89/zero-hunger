@@ -1,252 +1,86 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>zeroHunger | Admin-Request Portal</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-  <link rel="stylesheet" href="css/admin.css" type="text/css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <title>Admin Requests</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
 </head>
 
 <body>
-  <!-- Header -->
-  <nav class="navbar navbar-expand-sm bg-white text-dark justify-content-center fixed-top">
-    <div class="container-fluid justify-content-space-between">
-      <div id="logo">zero<a class="navbar-brand" href="index.html" translate="no" id="logo-s">Hunger</a></div>
-      <button class="navbar-toggler hide border-white" type="button" data-bs-toggle="collapse"
-        data-bs-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
-        <ul class="navbar-nav align-items-center fw-bold" style="text-transform: uppercase;">
-          <li class="nav-item" style="white-space: nowrap;">
-            <a class="nav-link" href="donate.html">Donation Portal</a>
-          </li>
-          <li class="nav-item" style="white-space: nowrap;">
-            <a class="nav-link" href="catalogue.html">Logout</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- heading -->
-  <div class="container-fluid mt-5">
-    <div class="row">
-      <div class="heading mt-3">
-        <h4>zeroHunger Adminstration Request Portal</h4>
-      </div>
-    </div>
-  </div>
-  <!--food display table -->
-  <div class="container mt-3">
-    <div class="row">
-      <table class="table bg-dark text-white">
-        <thead>
-          <tr>
-            <th>NAME OF FOOD</th>
-            <th>FOOD TYPE</th>
-            <th>PICTURE OF FOOD</th>
-            <th>REQUEST FOOD</th>
-          </tr>
-        </thead>
-        <tbody id="tbody1"></tbody>
-      </table>
-      <div id="message" class="text-center text-danger mt-5 fw-bolder fs-3" style="display: none;">SORRY, THERE ARE NO FOODS AVAILABLE AT THE FOOD BANK CURRENTLY. PLEASE VISIT OTHER NEARBY FOOD BANKS.</div>
-    </div>
+  <div class="container mt-5">
+    <h2 class="text-center">Food Requests</h2>
+    <table class="table table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>Reference Number</th>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Food Name</th>
+          <th>Food Bank Center</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="requestsTableBody">
+      </tbody>
+    </table>
   </div>
 
-  <!-- Request Food Modal -->
-  <div class="modal fade" id="requestFoodModal" tabindex="-1" aria-labelledby="requestFoodModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="requestFoodModalLabel">Request Food</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="requestFoodForm">
-            <div class="mb-3">
-              <label for="recipientName" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="recipientName" required>
-            </div>
-            <div class="mb-3">
-              <label for="recipientEmail" class="form-label">Email</label>
-              <input type="email" class="form-control" id="recipientEmail" required>
-            </div>
-            <div class="mb-3">
-              <label for="recipientPhone" class="form-label">Phone Number</label>
-              <input type="tel" class="form-control" id="recipientPhone" required>
-            </div>
-            <div class="mb-3">
-              <label for="recipientAddress" class="form-label">Address</label>
-              <input type="text" class="form-control" id="recipientAddress" required>
-            </div>
-            <div id="formWarning" class="text-danger" style="display: none;">Please fill out all fields correctly.</div>
-            <button type="submit" class="btn btn-primary">Request Food</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  <script>
+    function loadRequests() {
+      let requests = JSON.parse(localStorage.getItem('foodRequests')) || [];
+      let tableBody = document.getElementById('requestsTableBody');
+      tableBody.innerHTML = '';
 
-  <!-- Firebase and other configurations -->
-  <script type="module">
-    var foodNo = 0;
-    var request = "REQUEST";
-    var tbody = document.getElementById("tbody1");
-
-    let selectedFood = null;
-
-    function AddItemToTable(foodName, foodType, foodPicture) {
-      let trow = document.createElement("tr");
-      let td1 = document.createElement("td");
-      let td2 = document.createElement("td");
-      let td3 = document.createElement("td");
-      let td5 = document.createElement("td");
-      let requestBtn = document.createElement("button");
-
-      td1.innerHTML = foodName;
-      td2.innerHTML = foodType;
-      td3.innerHTML = `<img src="${foodPicture}" alt="${foodName}" style="width: 100px;">`;
-      requestBtn.className = "btn btn-primary";
-      requestBtn.innerText = request;
-      requestBtn.setAttribute("data-bs-toggle", "modal");
-      requestBtn.setAttribute("data-bs-target", "#requestFoodModal");
-
-      // Add event listener to open the modal and populate it
-      requestBtn.addEventListener("click", () => {
-        selectedFood = {
-          name: foodName,
-          type: foodType,
-          picture: foodPicture
-        };
-        document.getElementById("formWarning").style.display = 'none';
-        document.getElementById("requestFoodForm").reset();
-      });
-
-      td5.appendChild(requestBtn);
-
-      trow.appendChild(td1);
-      trow.appendChild(td2);
-      trow.appendChild(td3);
-      trow.appendChild(td5);
-
-      tbody.appendChild(trow);
-    }
-
-    function AddAllItemsToTable(Thefood) {
-      tbody.innerHTML = "";
-      Thefood.forEach(element => {
-        AddItemToTable(element.foodName, element.foodType, element.foodPicture);
+      requests.forEach(request => {
+        let row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${request.referenceNumber}</td>
+          <td>${request.date}</td>
+          <td>${request.name}</td>
+          <td>${request.email}</td>
+          <td>${request.phone}</td>
+          <td>${request.address}</td>
+          <td>${request.foodName}</td>
+          <td>${request.foodBankCenter}</td>
+          <td>
+            <button class="btn btn-success" onclick="confirmRequest('${request.referenceNumber}')">Confirm</button>
+            <button class="btn btn-warning" onclick="declineRequest('${request.referenceNumber}')">Decline</button>
+            <button class="btn btn-danger" onclick="deleteRequest('${request.referenceNumber}')">Delete</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
       });
     }
 
-    // Firebase Configuration
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyA1sfm2XVLTPEbIVeUAVMvXRV_tFTUyffw",
-      authDomain: "zerohunger-f7417.firebaseapp.com",
-      databaseURL: "https://zerohunger-f7417-default-rtdb.firebaseio.com",
-      projectId: "zerohunger-f7417",
-      storageBucket: "zerohunger-f7417.appspot.com",
-      messagingSenderId: "477597863714",
-      appId: "1:477597863714:web:187661d1cb7c74ed1b1f7b",
-      measurementId: "G-7B1F5S2TJB"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics();
-
-    import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
-    const db = getDatabase();
-
-    // Getting data in realtime from the Firebase database
-    function GetAllDataRealtime() {
-      const dbRef = ref(db, "user/Faculty of Agriculture, KNUST");
-
-      onValue(dbRef, (snapshot) => {
-        var food = [];
-
-        if (snapshot.exists() && snapshot.hasChildren()) {
-          snapshot.forEach(childSnapshot => {
-            food.push(childSnapshot.val());
-          });
-
-          AddAllItemsToTable(food);
-          document.getElementById('message').style.display = 'none'; // Hide the message
-        } else {
-          document.getElementById('message').textContent = 'SORRY, THERE ARE NO FOODS AVAILABLE AT THE FOOD BANK CURRENTLY. PLEASE VISIT OTHER NEARBY FOOD BANKS.';
-          document.getElementById('message').style.display = 'block'; // Show the message
-          document.getElementById('tbody1').innerHTML = ''; // Clear the table
-        }
-      });
+    function confirmRequest(referenceNumber) {
+      let requests = JSON.parse(localStorage.getItem('foodRequests')) || [];
+      // Handle confirmation logic here if needed
+      requests = requests.filter(request => request.referenceNumber !== referenceNumber);
+      localStorage.setItem('foodRequests', JSON.stringify(requests));
+      loadRequests();
     }
 
-    window.onload = GetAllDataRealtime;
-
-    // Function to generate a reference number
-    function generateReferenceNumber() {
-      return 'REF' + Math.floor(Math.random() * 1000000);
+    function declineRequest(referenceNumber) {
+      let requests = JSON.parse(localStorage.getItem('foodRequests')) || [];
+      // Handle decline logic here if needed
+      requests = requests.filter(request => request.referenceNumber !== referenceNumber);
+      localStorage.setItem('foodRequests', JSON.stringify(requests));
+      loadRequests();
     }
 
-    // Form submission handler
-    document.getElementById('requestFoodForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
+    function deleteRequest(referenceNumber) {
+      let requests = JSON.parse(localStorage.getItem('foodRequests')) || [];
+      requests = requests.filter(request => request.referenceNumber !== referenceNumber);
+      localStorage.setItem('foodRequests', JSON.stringify(requests));
+      loadRequests();
+    }
 
-      const name = document.getElementById('recipientName').value;
-      const email = document.getElementById('recipientEmail').value;
-      const phone = document.getElementById('recipientPhone').value;
-      const address = document.getElementById('recipientAddress').value;
-
-      if (name && email && phone && address && selectedFood) {
-        const referenceNumber = generateReferenceNumber();
-
-        // Assuming we also store the request in the database
-        const dbRef = ref(db, 'requests/' + referenceNumber);
-        await set(dbRef, {
-          name: name,
-          email: email,
-          phone: phone,
-          address: address,
-          referenceNumber: referenceNumber,
-          foodName: selectedFood.name,
-          foodType: selectedFood.type,
-          foodPicture: selectedFood.picture
-        });
-
-        // Store data in localStorage for redirection
-        const requestData = {
-          name,
-          email,
-          phone,
-          address,
-          referenceNumber,
-          foodName: selectedFood.name,
-          foodType: selectedFood.type,
-          foodPicture: selectedFood.picture
-        };
-
-        let requests = JSON.parse(localStorage.getItem('requests')) || [];
-        requests.push(requestData);
-        localStorage.setItem('requests', JSON.stringify(requests));
-
-        // Redirect to AdminRequest.html
-        window.location.href = 'AdminRequest.html';
-      } else {
-        document.getElementById('formWarning').style.display = 'block';
-      }
-    });
+    window.onload = loadRequests;
   </script>
 </body>
 
