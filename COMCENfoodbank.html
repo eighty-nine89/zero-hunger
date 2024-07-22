@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
       position: relative;
@@ -159,6 +160,8 @@
             <label for="recipientTime" class="form-label" style="font-weight: bold;">Time for Collection</label>
             <input type="time" class="form-control" id="recipientTime" required>
           </div> -->
+          <input type="hidden" id="foodName" />
+            <input type="hidden" id="foodBankCenter" />
           <div id="formWarning" class="text-danger" style="display: none;">Please fill out all fields correctly.</div>
           <button type="submit" class="btn btn-primary" id="requestfoodbtn">Request Food</button>
         </form>
@@ -178,33 +181,29 @@
       let td1 = document.createElement("td");
       let td2 = document.createElement("td");
       let td3 = document.createElement("td");
-      // let td4 = document.createElement("td");
       let td5 = document.createElement("td");
       let requestBtn = document.createElement("button");
 
       td1.innerHTML = foodName;
       td2.innerHTML = foodType;
       td3.innerHTML = `<img src="${foodPicture}" alt="${foodName}" style="width: 100px;">`;
-      // td4.innerHTML = foodMessage;
       requestBtn.className = "btn btn-primary";
       requestBtn.innerText = request;
       requestBtn.setAttribute("data-bs-toggle", "modal");
       requestBtn.setAttribute("data-bs-target", "#requestFoodModal");
 
-      // Add event listener to open the modal and populate it
       requestBtn.addEventListener("click", () => {
         document.getElementById("formWarning").style.display = 'none';
         document.getElementById("requestFoodForm").reset();
+        document.getElementById("foodName").value = foodName;
+        document.getElementById("foodBankCenter").value = "Community Center Food Bank, KNUST.";
       });
 
       td5.appendChild(requestBtn);
-
       trow.appendChild(td1);
       trow.appendChild(td2);
       trow.appendChild(td3);
-      // trow.appendChild(td4);
       trow.appendChild(td5);
-
       tbody.appendChild(trow);
     }
 
@@ -219,7 +218,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
 
-    // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyA1sfm2XVLTPEbIVeUAVMvXRV_tFTUyffw",
       authDomain: "zerohunger-f7417.firebaseapp.com",
@@ -231,7 +229,6 @@
       measurementId: "G-7B1F5S2TJB"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics();
 
@@ -239,7 +236,6 @@
 
     const db = getDatabase();
 
-    // Getting data in realtime from the Firebase database
     function GetAllDataRealtime() {
       const dbRef = ref(db, "user/Community Center, KNUST");
 
@@ -252,17 +248,55 @@
           });
 
           AddAllItemsToTable(food);
-          document.getElementById('message').style.display = 'none'; // Hide the message
+          document.getElementById('message').style.display = 'none';
         } else {
           document.getElementById('message').textContent = 'SORRY, THERE ARE NO FOODS AVAILABLE AT THE FOOD BANK CURRENTLY. PLEASE VISIT OTHER NEARBY FOOD BANKS.';
-          document.getElementById('message').style.display = 'block'; // Show the message
-          document.getElementById('tbody1').innerHTML = ''; // Clear the table
+          document.getElementById('message').style.display = 'block';
+          document.getElementById('tbody1').innerHTML = '';
         }
       });
     }
 
     window.onload = GetAllDataRealtime;
+    
+    //food request form data locally stored to the adminrequest.html 
+    document.getElementById("requestFoodForm").addEventListener("submit", function (event) {
+      event.preventDefault();
 
+      const date = document.getElementById("recipientDate").value;
+      const name = document.getElementById("recipientName").value;
+      const email = document.getElementById("recipientEmail").value;
+      const phone = document.getElementById("recipientPhone").value;
+      const address = document.getElementById("recipientAddress").value;
+      const foodName = document.getElementById("foodName").value;
+      const foodBankCenter = document.getElementById("foodBankCenter").value;
+
+      const referenceNumber = 'REF' + Math.floor(Math.random() * 1000000);
+
+      const requestData = {
+        referenceNumber,
+        date,
+        name,
+        email,
+        phone,
+        address,
+        foodName,
+        foodBankCenter
+      };
+
+      let requests = JSON.parse(localStorage.getItem('foodRequests')) || [];
+      requests.push(requestData);
+      localStorage.setItem('foodRequests', JSON.stringify(requests));
+
+      Swal.fire({
+        title: 'Request Submitted',
+        text: 'Your food request has been submitted successfully! zeroHunger will contact you on your requested food. ',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+
+      document.getElementById("requestFoodForm").reset();
+    });
   </script>
 </body>
 

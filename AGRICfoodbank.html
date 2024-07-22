@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
       position: relative;
@@ -158,6 +159,8 @@
             <label for="recipientTime" class="form-label" style="font-weight: bold;">Time for Collection</label>
             <input type="time" class="form-control" id="recipientTime" required>
           </div> -->
+          <input type="hidden" id="foodName" />
+            <input type="hidden" id="foodBankCenter" />
           <div id="formWarning" class="text-danger" style="display: none;">Please fill out all fields correctly.</div>
           <button type="submit" class="btn btn-primary" id="requestfoodbtn">Request Food</button>
         </form>
@@ -168,7 +171,7 @@
 
   <!-- Firebase and other configurations -->
   <script type="module">
-    var foodNo = 0;
+      var foodNo = 0;
     var request = "REQUEST";
     var tbody = document.getElementById("tbody1");
 
@@ -188,19 +191,18 @@
       requestBtn.setAttribute("data-bs-toggle", "modal");
       requestBtn.setAttribute("data-bs-target", "#requestFoodModal");
 
-      // Add event listener to open the modal and populate it
       requestBtn.addEventListener("click", () => {
         document.getElementById("formWarning").style.display = 'none';
         document.getElementById("requestFoodForm").reset();
+        document.getElementById("foodName").value = foodName;
+        document.getElementById("foodBankCenter").value = "College of Agriculture Food Bank, KNUST.";
       });
 
       td5.appendChild(requestBtn);
-
       trow.appendChild(td1);
       trow.appendChild(td2);
       trow.appendChild(td3);
       trow.appendChild(td5);
-
       tbody.appendChild(trow);
     }
 
@@ -215,7 +217,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
 
-    // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyA1sfm2XVLTPEbIVeUAVMvXRV_tFTUyffw",
       authDomain: "zerohunger-f7417.firebaseapp.com",
@@ -227,7 +228,6 @@
       measurementId: "G-7B1F5S2TJB"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics();
 
@@ -235,7 +235,6 @@
 
     const db = getDatabase();
 
-    // Getting data in realtime from the Firebase database
     function GetAllDataRealtime() {
       const dbRef = ref(db, "user/Faculty of Agriculture, KNUST");
 
@@ -248,79 +247,54 @@
           });
 
           AddAllItemsToTable(food);
-          document.getElementById('message').style.display = 'none'; // Hide the message
+          document.getElementById('message').style.display = 'none';
         } else {
           document.getElementById('message').textContent = 'SORRY, THERE ARE NO FOODS AVAILABLE AT THE FOOD BANK CURRENTLY. PLEASE VISIT OTHER NEARBY FOOD BANKS.';
-          document.getElementById('message').style.display = 'block'; // Show the message
-          document.getElementById('tbody1').innerHTML = ''; // Clear the table
+          document.getElementById('message').style.display = 'block';
+          document.getElementById('tbody1').innerHTML = '';
         }
       });
     }
 
     window.onload = GetAllDataRealtime;
+    
+    //food request form data locally stored to the adminrequest.html 
+    document.getElementById("requestFoodForm").addEventListener("submit", function (event) {
+      event.preventDefault();
 
-    // Function to generate a reference number
-    function generateReferenceNumber() {
-      return 'REF' + Math.floor(Math.random() * 1000000);
-    }
+      const date = document.getElementById("recipientDate").value;
+      const name = document.getElementById("recipientName").value;
+      const email = document.getElementById("recipientEmail").value;
+      const phone = document.getElementById("recipientPhone").value;
+      const address = document.getElementById("recipientAddress").value;
+      const foodName = document.getElementById("foodName").value;
+      const foodBankCenter = document.getElementById("foodBankCenter").value;
 
-    // Function to send SMS using a hypothetical API
-    async function sendSMS(phoneNumber, referenceNumber) {
-      try {
-        const response = await fetch('https://api.hypotheticalsms.com/send', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            to: phoneNumber,
-            message: `Your food request has been received. Your reference number is ${referenceNumber}.`
-          }),
-        });
-        const data = await response.json();
-        return data.success;
-      } catch (error) {
-        console.error('Error sending SMS:', error);
-        return false;
-      }
-    }
+      const referenceNumber = 'REF' + Math.floor(Math.random() * 1000000);
 
-    // Form submission handler
-    document.getElementById('requestFoodForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
+      const requestData = {
+        referenceNumber,
+        date,
+        name,
+        email,
+        phone,
+        address,
+        foodName,
+        foodBankCenter
+      };
 
-      const name = document.getElementById('recipientName').value;
-      const email = document.getElementById('recipientEmail').value;
-      const phone = document.getElementById('recipientPhone').value;
-      const address = document.getElementById('recipientAddress').value;
+      let requests = JSON.parse(localStorage.getItem('foodRequests')) || [];
+      requests.push(requestData);
+      localStorage.setItem('foodRequests', JSON.stringify(requests));
 
-      if (name && email && phone && address) {
-        const referenceNumber = generateReferenceNumber();
+      Swal.fire({
+        title: 'Request Submitted',
+        text: 'Your food request has been submitted successfully! zeroHunger will contact you on your requested food. ',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
 
-        // Assuming we also store the request in the database
-        const dbRef = ref(db, 'requests/' + referenceNumber);
-        await set(dbRef, {
-          name: name,
-          email: email,
-          phone: phone,
-          address: address,
-          referenceNumber: referenceNumber
-        });
-
-        // Send SMS with the reference number
-        const smsSuccess = await sendSMS(phone, referenceNumber);
-
-        if (smsSuccess) {
-          alert('Your request has been submitted successfully. A confirmation SMS has been sent to your phone.');
-        } else {
-          alert('Your request has been submitted, but we could not send the confirmation SMS.');
-        }
-
-        document.getElementById('requestFoodForm').reset();
-        document.getElementById('formWarning').style.display = 'none';
-      } else {
-        document.getElementById('formWarning').style.display = 'block';
-      }
+      document.getElementById("requestFoodForm").reset();
     });
   </script>
 </body>
