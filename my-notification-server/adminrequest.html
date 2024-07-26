@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Requests</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h2 class="text-center">Food Requests</h2>
+    <table class="table table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>Reference Number</th>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Food Name</th>
+          <th>Food Bank Center</th>
+          <th>Confirm Request</th>
+        </tr>
+      </thead>
+      <tbody id="requestsTableBody">
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function loadRequests() {
+      let requests = JSON.parse(localStorage.getItem('foodRequests')) || [];
+      let tableBody = document.getElementById('requestsTableBody');
+
+      requests.forEach(request => {
+        let row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${request.referenceNumber}</td>
+          <td>${request.date}</td>
+          <td>${request.name}</td>
+          <td>${request.email}</td>
+          <td>${request.phone}</td>
+          <td>${request.address}</td>
+          <td>${request.foodName}</td>
+          <td>${request.foodBankCenter}</td>
+          <td><button class="btn btn-success" onclick="confirmRequest('${request.referenceNumber}')">Confirm Request</button></td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function confirmRequest(referenceNumber) {
+      let requests = JSON.parse(localStorage.getItem('foodRequests')) || [];
+      let request = requests.find(request => request.referenceNumber === referenceNumber);
+
+      if (request) {
+        fetch('http://localhost:5502/confirmRequest', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(request)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            console.error('Error confirming request:', data.error);
+          } else {
+            console.log('Request confirmed:', data.message);
+            // Remove the confirmed request from local storage
+            requests = requests.filter(req => req.referenceNumber !== referenceNumber);
+            localStorage.setItem('foodRequests', JSON.stringify(requests));
+            loadRequests();
+          }
+        })
+        .catch(error => console.error('Error confirming request:', error));
+      }
+    }
+
+    window.onload = loadRequests;
+  </script>
+</body>
+
+</html>
