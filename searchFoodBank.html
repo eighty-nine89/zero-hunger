@@ -35,7 +35,6 @@
             left: 0;
             right: 0;
             bottom: 0;
-            /* background: inherit; */
             filter: blur(50px);
             z-index: 1;
         }
@@ -181,9 +180,15 @@
             foodBankNameContainer.innerText = foodBankName.replace(/foodbank/gi, ' Food Bank').replace('.html', '');
 
             const searchForm = document.querySelector("#search-form");
+            const searchInput = document.querySelector("#search-input");
+            
+            searchInput.addEventListener("input", () => {
+                searchInput.value = searchInput.value.toLowerCase();
+            });
+
             searchForm.onsubmit = function (event) {
                 event.preventDefault();
-                const query = document.querySelector("#search-input").value.trim();
+                const query = searchInput.value.trim();
                 console.log(foodBankName, query)
                 if (query) {
                     searchFood(foodBankName, query);
@@ -231,7 +236,7 @@
 
         function displayNoResults(query) {
             const foodItemsContainer = document.querySelector("#food-items");
-            foodItemsContainer.innerHTML = `<p>Sorry, No food found for "${query}".</p>`;
+            foodItemsContainer.innerHTML = `<p style="color: red; text-transform: uppercase;">Sorry, No food found for "${query}".</p>`;
         }
 
         // Function to handle search results on redirected page
