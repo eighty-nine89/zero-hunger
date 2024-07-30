@@ -10,9 +10,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@vonage/server-sdk": "^3.16.0",
     "body-parser": "^1.20.2",
     "express": "^4.19.2",
-    "firebase-admin": "^12.2.0",
+    "firebase-admin": "^12.3.0",
     "twilio": "^5.2.2"
   }
 }

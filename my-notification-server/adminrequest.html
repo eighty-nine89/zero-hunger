@@ -33,14 +33,15 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
         <form class="d-flex">
-          <input id="searchInput" class="form-control me-2" type="search" placeholder="Search by Reference Number" aria-label="Search" oninput="filterRequests()">
+          <input id="searchInput" class="form-control me-5" type="search" placeholder="Search by Reference Number" aria-label="Search" oninput="filterRequests()">
         </form>
+        <button class="btn btn-danger logout-btn" id="logout-button">Logout</button>
       </div>
     </div>
   </nav>
 
   <div class="container mt-5">
-    <h2 class="text-center text-white">Food Requests</h2>
+    <h2 class="text-center text-dark">Food Requests</h2>
     <table class="table table-bordered table-striped table-hover mt-3 animate__animated animate__fadeIn">
       <thead class="table-dark">
         <tr>
@@ -132,7 +133,7 @@
       });
       loadRequests();
     }
-
+    //Filter food request by the reference number
     function filterRequests() {
       let searchInput = document.getElementById('searchInput').value.toLowerCase();
       let tableBody = document.getElementById('requestsTableBody');
@@ -152,7 +153,31 @@
     }
 
     window.onload = loadRequests;
+
+
+    // Check if user is logged in
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+            alert("You must be logged in to access the admin dashboard.");
+            window.location.href = "../adminlogin.html";
+        }
+
+        // Logout functionality
+        document.getElementById('logout-button').addEventListener('click', function () {
+            // Clear the session
+            localStorage.removeItem('isLoggedIn');
+
+            // Redirect to login page and prevent going back
+            window.location.href = "../adminlogin.html";
+            setTimeout(() => {
+                // Clear the browser history to prevent back navigation
+                window.history.pushState(null, document.title, window.location.href);
+                window.addEventListener('popstate', function () {
+                    window.history.pushState(null, document.title, window.location.href);
+                });
+            }, 0);
+        });
   </script>
+  
 </body>
 
 </html>

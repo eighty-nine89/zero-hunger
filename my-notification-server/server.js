@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json');
-const axios = require('axios');
+const { Vonage } = require('@vonage/server-sdk');
 
 const app = express();
 const port = 5502;
@@ -14,7 +14,10 @@ admin.initializeApp({
   databaseURL: "https://recipientdb-d69a4-default-rtdb.firebaseio.com"
 });
 
-const INFOPBIP_API_KEY = '0511e843c836a4715509f9058242735f-b54b1085-0a13-4569-bef1-16a809ff21a5'; // Infobip API key
+const vonage = new Vonage({
+  apiKey: 'fd360b96',
+  apiSecret: 'r4Dd7O2UeA4mgD1D'
+});
 
 // Enable CORS for all routes
 app.use((req, res, next) => {
@@ -32,45 +35,41 @@ app.options('/confirmRequest', (req, res) => {
 app.post('/confirmRequest', async (req, res) => {
   const { referenceNumber, name, phone, foodName, foodBankCenter } = req.body;
 
-  const message = `Hello ${name}, your request for ${foodName} at ${foodBankCenter} has been confirmed. Your reference number is ${referenceNumber}. Please pick up your food within the next 2 hours.`;
+  const currentDateTime = new Date();
+  const pickupTime = new Date(currentDateTime.getTime() + 2 * 60 * 60 * 1000);
+  const formattedPickupTime = pickupTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-  // Ensure phone number is in the correct format for Ghana
+  const message = `Hello ${name}, your request for ${foodName} at ${foodBankCenter} has been confirmed. Your reference number is ${referenceNumber}. Please pick up your food by ${formattedPickupTime}.`;
+
+  // Ensure phone number is in the correct format for Ghana without removing the leading zero
   let formattedPhone = phone;
   if (!formattedPhone.startsWith('+233')) {
-    formattedPhone = '+233' + phone.replace(/^0/, ''); // Remove leading zero if present
+    formattedPhone = '+233' + phone;
   }
 
-  const myHeaders = {
-    'Authorization': `App ${INFOPBIP_API_KEY}`,
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  };
-
-  const raw = JSON.stringify({
-    messages: [
-      {
-        destinations: [{ to: formattedPhone }],
-        from: "ServiceSMS",
-        text: message
-      }
-    ]
-  });
+  console.log(`Sending SMS to: ${formattedPhone}`);
+  console.log(`Message: ${message}`);
 
   try {
-    // Send SMS via Infobip
-    const response = await axios.post('https://vvnmvr.api.infobip.com/sms/2/text/advanced', raw, {
-      headers: myHeaders
+    // Send SMS via Vonage
+    const from = 'fd360b96';
+    const to = formattedPhone;
+    vonage.sms.send({to, from, text: message}, (err, responseData) => {
+      if (err) {
+        console.error('Error sending SMS:', err);
+        res.status(500).send({ error: 'Error confirming request.' });
+      } else {
+        if (responseData.messages[0].status === "0") {
+          console.log('Message sent successfully.');
+          // Store the request in Firebase
+          admin.database().ref('confirmedRequests/' + referenceNumber).set(req.body);
+          res.status(200).send({ message: 'Request confirmed and stored in Firebase.' });
+        } else {
+          console.error(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+          res.status(500).send({ error: 'Error confirming request.' });
+        }
+      }
     });
-
-    console.log('Infobip response:', response.data);
-
-    if (response.data.messages && response.data.messages[0].status.groupId === 1) {
-      // Store the request in Firebase
-      await admin.database().ref('confirmedRequests/' + referenceNumber).set(req.body);
-      res.status(200).send({ message: 'Request confirmed and stored in Firebase.' });
-    } else {
-      throw new Error('SMS not sent successfully');
-    }
   } catch (error) {
     console.error('Error confirming request:', error);
     res.status(500).send({ error: 'Error confirming request.' });
