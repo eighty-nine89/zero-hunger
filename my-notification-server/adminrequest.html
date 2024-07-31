@@ -20,20 +20,53 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+
+    #logo {
+      display: inline-block;
+      margin-left: 15px;
+      cursor: pointer;
+      font-size: 23px;
+      font-weight: bolder;
+      color: black;
+      z-index: 1;
+    }
+
+    #logo:hover {
+      color: #209CEE;
+    }
+
+    #logo-s {
+      font-weight: light;
+      color: #209CEE;
+    }
+
+    #logo:hover #logo-s {
+      color: #209CEE;
+    }
+
+    #logo-s:hover #logo {
+      color: black;
+    }
+    #searchInput{
+      width: 300px;
+    }
   </style>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
+      <div id="logo">zero<a class="navbar-brand" href="admindonation.html" translate="no" id="logo-s">Hunger |</a></div>
       <a class="navbar-brand" href="#">Admin Requests</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
         <form class="d-flex">
-          <input id="searchInput" class="form-control me-5" type="search" placeholder="Search by Reference Number" aria-label="Search" oninput="filterRequests()">
+          <input id="searchInput" class="form-control me-5" type="search" placeholder="Search by Reference Number"
+            aria-label="Search" oninput="filterRequests()">
         </form>
         <button class="btn btn-danger logout-btn" id="logout-button">Logout</button>
       </div>
@@ -100,24 +133,24 @@
           },
           body: JSON.stringify(request)
         })
-        .then(response => response.json())
-        .then(data => {
-          if (data.error) {
-            console.error('Error confirming request:', data.error);
-          } else {
-            Swal.fire({
-              title: 'Confirmed!',
-              text: 'The request has been confirmed.',
-              icon: 'success',
-              confirmButtonText: 'OK'
-            });
-            // Remove the confirmed request from local storage
-            requests = requests.filter(req => req.referenceNumber !== referenceNumber);
-            localStorage.setItem('foodRequests', JSON.stringify(requests));
-            loadRequests();
-          }
-        })
-        .catch(error => console.error('Error confirming request:', error));
+          .then(response => response.json())
+          .then(data => {
+            if (data.error) {
+              console.error('Error confirming request:', data.error);
+            } else {
+              Swal.fire({
+                title: 'Confirmed!',
+                text: 'The request has been confirmed.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+              });
+              // Remove the confirmed request from local storage
+              requests = requests.filter(req => req.referenceNumber !== referenceNumber);
+              localStorage.setItem('foodRequests', JSON.stringify(requests));
+              loadRequests();
+            }
+          })
+          .catch(error => console.error('Error confirming request:', error));
       }
     }
 
@@ -157,27 +190,27 @@
 
     // Check if user is logged in
     if (localStorage.getItem('isLoggedIn') !== 'true') {
-            alert("You must be logged in to access the admin dashboard.");
-            window.location.href = "../adminlogin.html";
-        }
+      alert("You must be logged in to access the admin dashboard.");
+      window.location.href = "../adminlogin.html";
+    }
 
-        // Logout functionality
-        document.getElementById('logout-button').addEventListener('click', function () {
-            // Clear the session
-            localStorage.removeItem('isLoggedIn');
+    // Logout functionality
+    document.getElementById('logout-button').addEventListener('click', function () {
+      // Clear the session
+      localStorage.removeItem('isLoggedIn');
 
-            // Redirect to login page and prevent going back
-            window.location.href = "../adminlogin.html";
-            setTimeout(() => {
-                // Clear the browser history to prevent back navigation
-                window.history.pushState(null, document.title, window.location.href);
-                window.addEventListener('popstate', function () {
-                    window.history.pushState(null, document.title, window.location.href);
-                });
-            }, 0);
+      // Redirect to login page and prevent going back
+      window.location.href = "../adminlogin.html";
+      setTimeout(() => {
+        // Clear the browser history to prevent back navigation
+        window.history.pushState(null, document.title, window.location.href);
+        window.addEventListener('popstate', function () {
+          window.history.pushState(null, document.title, window.location.href);
         });
+      }, 0);
+    });
   </script>
-  
+
 </body>
 
 </html>

@@ -20,6 +20,7 @@
     .is-invalid {
       border-color: red;
     }
+
     .error-message {
       color: red;
       font-size: 0.875em;
@@ -174,164 +175,106 @@
         </div>
         <!-- Donor phone number -->
         <div class="text-field">
-          <label for="donor-phone">Phone number
+          <label for="donor-phone">Phone number of Donor
             <input type="tel" id="donor-phone" name="donor-phone" placeholder="" class="controls" maxlength="10" required>
           </label>
           <div class="error-message" id="donor-phone-error"></div>
         </div>
-        <!-- Donor Email -->
-        <div class="text-field" style="text-transform: none;">
+        <!-- Donor email -->
+        <div class="text-field">
           <label for="donor-email">Email of Donor
-            <input type="email" id="donor-email" name="donor-email" placeholder="" class="controls" required>
+            <input type="email" id="donor-email" name="donor-email" autocomplete="on" placeholder="" class="controls" required>
           </label>
           <div class="error-message" id="donor-email-error"></div>
         </div>
-        <!-- submit button -->
-        <button type="submit" id="submit" class="my-form__button">
-          Donate Item
-        </button>
+        <!-- divider line -->
+        <!-- <div class="divider mt-3">
+          <div class="divider-line"></div>
+        </div> -->
+        <div class="form-group form-button">
+          <button type="submit" id="btn" name="btn" class="donate-food my-form__button">Donate Food</button>
+        </div>
       </form>
     </div>
-    <!-- side info gif -->
-    <div class="info-side">
+     <!-- side info gif -->
+     <div class="info-side">
       <img src="images/fooddonation2.jpg" alt="animated donation image" class="donation-image" />
     </div>
   </div>
-  <!-- footer -->
+  </div>
+  <!-- Footer -->
   <div class="myfooter">
     <section class="footer">
-      <div class="foot">
-        <div class="footer-content">
+        <div class="foot">
+            <div class="footer-content">
 
-          <div class="footlinks">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><a href="catalogue.html">Request</a></li>
-              <li><a href="aboutus.html">About Us</a></li>
-              <li><a href="contactus.html">Contact Us</a></li>
-              <li><a href="blog.html">Our Blog</a></li>
-              <li><a href="fundus.html">Fund Us</a></li>
-            </ul>
-          </div>
+                <div class="footlinks">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="donate.html">Donate</a></li>
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="contactus.html">Contact Us</a></li>
+                        <li><a href="blog.html">Our Blog</a></li>
+                        <li><a href="fundus.html">Fund Us</a></li>
+                    </ul>
+                </div>
 
-          <div class="footlinks">
-            <h4>Connect</h4>
-            <div class="social">
-              <a href="" target="_blank"><i class='bx bxl-facebook'></i></a>
-              <a href="" target="_blank"><i class='bx bxl-instagram'></i></a>
-              <a href="" target="_blank"><i class='bx bxl-linkedin'></i></a>
-              <a href="" target="_blank"><i class='bx bxl-youtube'></i></a>
+                <div class="footlinks">
+                    <h4>Connect</h4>
+                    <div class="social">
+                        <a href="" target="_blank"><i class='bx bxl-facebook'></i></a>
+                        <a href="" target="_blank"><i class='bx bxl-instagram'></i></a>
+                        <a href="" target="_blank"><i class='bx bxl-linkedin'></i></a>
+                        <a href="" target="_blank"><i class='bx bxl-youtube'></i></a>
+                    </div>
+                </div>
+
             </div>
-          </div>
-
         </div>
-      </div>
 
-      <div class="end">
-        <p>Tel: 024 114 5862 | <a href="mailto:kobbyfrimpz89@gmail.com"
-            style="text-decoration: none; color: white;">Email: support@zeroHunger.com</a> | Copyright © 2024 zeroHunger
-          | All Rights Reserved <br>Website developed by: zeroHunger | Computer Science Department | KNUST.</p>
-      </div>
+        <div class="end">
+            <p>Tel: 024 114 5862 | <a href="mailto:kobbyfrimpz89@gmail.com"
+                    style="text-decoration: none; color: white;">Email: support@zeroHunger.com</a> | Copyright ©
+                2024 zeroHunger | All Rights Reserved <br>Website developed by: zeroHunger | Computer Science
+                Department | KNUST.</p>
+        </div>
     </section>
-  </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
-  <script src="javascript/jqBootstrapValidation.js"></script>
-  <!-- <script src="javascript/script-donation-validation.js"></script> -->
-  <script type="module" src="javascript/donateDatabase.js"></script>
-
-  <!-- validation script -->
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
-    // Firebase configuration
-var firebaseConfig = {
-    apiKey: "AIzaSyA1sfm2XVLTPEbIVeUAVMvXRV_tFTUyffw",
-    authDomain: "zerohunger-f7417.firebaseapp.com",
-    databaseURL: "https://zerohunger-f7417-default-rtdb.firebaseio.com",
-    projectId: "zerohunger-f7417",
-    storageBucket: "zerohunger-f7417.appspot.com",
-    messagingSenderId: "477597863714",
-    appId: "1:477597863714:web:187661d1cb7c74ed1b1f7b",
-    measurementId: "G-7B1F5S2TJB"
-  };
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  var db = firebase.firestore();
-  var storage = firebase.storage();
-  
-  document.getElementById('donation-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var isValid = validateForm();
-    if (isValid) {
-      storeData();
-    }
-  });
-  
-  function validateForm() {
-    var isValid = true;
-    var fields = [
-      'food-name', 'food-type', 'mandate', 'expdate',
-      'foodbank-center', 'donatedate', 'time', 'imageFile',
-      'message', 'donor-name', 'donor-phone', 'donor-email'
-    ];
-  
-    fields.forEach(function (field) {
-      var element = document.getElementById(field);
-      var errorElement = document.getElementById(field + '-error');
-      if (element.value.trim() === '') {
-        element.classList.add('is-invalid');
-        errorElement.textContent = 'This field is required';
-        isValid = false;
-      } else {
-        element.classList.remove('is-invalid');
-        errorElement.textContent = '';
-      }
-    });
-  
-    return isValid;
-  }
-  
-  function storeData() {
-    var formData = new FormData(document.getElementById('donation-form'));
-    var imageFile = formData.get('imageFile');
-  
-    // Store image in Firebase Storage
-    var storageRef = storage.ref('images/' + imageFile.name);
-    var uploadTask = storageRef.put(imageFile);
-  
-    uploadTask.on('state_changed', function(snapshot) {
-      // Handle upload progress
-    }, function(error) {
-      // Handle upload error
-      console.error('Image upload failed:', error);
-    }, function() {
-      // Get download URL and store form data in Firestore
-      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-        db.collection('donations').add({
-          foodName: formData.get('food-name'),
-          foodType: formData.get('food-type'),
-          manufactureDate: formData.get('mandate'),
-          expiryDate: formData.get('expdate'),
-          foodbankCenter: formData.get('foodbank-center'),
-          donationDate: formData.get('donatedate'),
-          donationTime: formData.get('time'),
-          imageUrl: downloadURL,
-          message: formData.get('message'),
-          donorName: formData.get('donor-name'),
-          donorPhone: formData.get('donor-phone'),
-          donorEmail: formData.get('donor-email')
-        }).then(function() {
-          alert('Donation successfully submitted');
-          document.getElementById('donation-form').reset();
-        }).catch(function(error) {
-          console.error('Error storing data:', error);
-        });
+    document.getElementById('donation-form').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form from submitting normally
+      // Get form data
+      const form = event.target;
+      const formData = new FormData(form);
+      const donationData = {
+        foodName: formData.get('food-name'),
+        foodType: formData.get('food-type'),
+        manufactureDate: formData.get('mandate'),
+        expiryDate: formData.get('expdate'),
+        foodbankCenter: formData.get('foodbank-center'),
+        donationDate: formData.get('donatedate'),
+        donationTime: formData.get('time'),
+        additionalDetails: formData.get('message'),
+        donorName: formData.get('donor-name'),
+        donorPhone: formData.get('donor-phone'),
+        donorEmail: formData.get('donor-email'),
+        referenceNumber: 'REF' + Math.floor(Math.random() * 9000000000) + 1000000000
+      };
+      // Save to local storage
+      let donations = JSON.parse(localStorage.getItem('donations')) || [];
+      donations.push(donationData);
+      localStorage.setItem('donations', JSON.stringify(donations));
+      // Show success message
+      Swal.fire({
+        title: 'Donation Submitted!',
+        html: `Your food donation has been successfully submitted. Please proceed to make your food donation at ${donationData.foodbankCenter}<br><br>Reference Number: ${donationData.referenceNumber}<br>Available Date for Donation: ${donationData.donationDate}`,
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        form.reset(); // Clear the form
       });
     });
-  }
-  
   </script>
 </body>
 
