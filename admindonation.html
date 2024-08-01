@@ -11,30 +11,37 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" crossorigin>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <!-- Validation css -->
   <style>
     body {
       background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
       background-size: cover;
     }
+
     .table {
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+
     .is-invalid {
       border-color: red;
     }
+
     .error-message {
       color: red;
       font-size: 0.875em;
     }
+
     .search-bar {
-      /* margin-bottom: 15px; */
       width: 300px;
     }
   </style>
@@ -46,8 +53,7 @@
     <div class="container-fluid justify-content-space-between">
       <div id="logo">zero<a class="navbar-brand" href="admindonation.html" translate="no" id="logo-s">Hunger |</a></div>
       <a class="navbar-brand" href="#">Admin Donations</a>
-      <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse"
-        data-bs-target="#collapsibleNavbar">
+      <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar" style="gap: 2rem;">
@@ -82,10 +88,25 @@
         <!-- Rows will be populated by JavaScript -->
       </tbody>
     </table>
-  </div>\
+  </div>
 
   <!-- scripts -->
   <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1sfm2XVLTPEbIVeUAVMvXRV_tFTUyffw",
+      authDomain: "zerohunger-f7417.firebaseapp.com",
+      databaseURL: "https://zerohunger-f7417-default-rtdb.firebaseio.com",
+      projectId: "zerohunger-f7417",
+      storageBucket: "zerohunger-f7417.appspot.com",
+      messagingSenderId: "477597863714",
+      appId: "1:477597863714:web:187661d1cb7c74ed1b1f7b",
+      measurementId: "G-7B1F5S2TJB"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var database = firebase.database();
+
     // Load donations from local storage
     function loadDonations() {
       const donations = JSON.parse(localStorage.getItem('donations')) || [];
@@ -117,11 +138,73 @@
     }
 
     // Confirm donation
-    function confirmDonation(referenceNumber) {
+    async function confirmDonation(referenceNumber) {
       let donations = JSON.parse(localStorage.getItem('donations')) || [];
-      donations = donations.filter(donation => donation.referenceNumber !== referenceNumber);
-      localStorage.setItem('donations', JSON.stringify(donations));
-      loadDonations();
+      const donation = donations.find(donation => donation.referenceNumber === referenceNumber);
+
+      if (donation) {
+        // Save donation to Firebase
+        await saveDonationToFirebase(donation);
+
+        // Generate SweetAlert confirmation
+        Swal.fire({
+          title: 'Donation Confirmed',
+          text: `The donation from ${donation.donorName} has been confirmed.`,
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+
+        // Send SMS via Vonage API
+        const twoHoursLater = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
+        const message = `Dear ${donation.donorName}, your donation is confirmed. Please deliver it to ${donation.foodbankCenter} on ${donation.donationDate} at ${twoHoursLater.getHours()}:${twoHoursLater.getMinutes()}. Ref: ${donation.referenceNumber}.<br> Thank you for your donation.`;
+
+        axios.post('https://rest.nexmo.com/sms/json', {
+          api_key: 'fd360b96',
+          api_secret: 'r4Dd7O2UeA4mgD1D',
+          to: '+233' + donation.donorPhone,
+          from: 'zeroHunger',
+          text: message
+        })
+        .then(response => {
+          console.log('SMS sent:', response.data);
+        })
+        .catch(error => {
+          console.error('Error sending SMS:', error);
+        });
+
+        // Remove donation from local storage
+        donations = donations.filter(donation => donation.referenceNumber !== referenceNumber);
+        localStorage.setItem('donations', JSON.stringify(donations));
+        loadDonations();
+      }
+    }
+
+    // Save donation to Firebase
+    async function saveDonationToFirebase(donation) {
+      const donateDatabaseScript = document.createElement('script');
+      donateDatabaseScript.src = 'donateDatabase.js';
+      document.body.appendChild(donateDatabaseScript);
+
+      donateDatabaseScript.onload = function () {
+        set(ref(db, `user/${donation.foodbankCenter}/${donation.donorName}/${donation.referenceNumber}`), {
+          foodName: donation.foodName,
+          foodType: donation.foodType,
+          manufacturedDate: donation.manufactureDate,
+          expiryDate: donation.expiryDate,
+          foodbankCenter: donation.foodbankCenter,
+          donateDate: donation.donationDate,
+          donateTime: donation.donationTime,
+          foodPicture: donation.foodPicture,
+          foodMessage: donation.additionalDetails,
+          donorName: donation.donorName,
+          donorPhonenumber: donation.donorPhone,
+          donorEmail: donation.donorEmail,
+        }).then(() => {
+          console.log("Donation data saved to Firebase successfully.");
+        }).catch(error => {
+          console.error("Error saving donation data to Firebase:", error);
+        });
+      }
     }
 
     // Remove donation
@@ -132,10 +215,11 @@
       loadDonations();
     }
 
-    // Search donations
-    document.getElementById('search-bar').addEventListener('input', function(event) {
-      const query = event.target.value.toLowerCase();
+    // Search functionality
+    document.getElementById('search-bar').addEventListener('input', function () {
+      const query = this.value.toLowerCase();
       const rows = document.querySelectorAll('#donation-table-body tr');
+
       rows.forEach(row => {
         const text = row.innerText.toLowerCase();
         row.style.display = text.includes(query) ? '' : 'none';
