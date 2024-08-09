@@ -56,7 +56,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <div id="logo">zero<a class="navbar-brand" href="admindonation.html" translate="no" id="logo-s">Hunger |</a></div>
+      <div id="logo">zero<a class="navbar-brand" href="adminrequest.html" translate="no" id="logo-s">Hunger |</a></div>
       <a class="navbar-brand" href="#">Admin Requests</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,7 +113,7 @@
           <td>${request.foodName}</td>
           <td>${request.foodBankCenter}</td>
           <td>
-            <button class="btn btn-success" onclick="confirmRequest('${request.referenceNumber}')">Confirm</button>
+            <button class="btn btn-success" style="margin-bottom: 0.5rem;" onclick="confirmRequest('${request.referenceNumber}')">Confirm</button>
             <button class="btn btn-danger" onclick="removeRequest('${request.referenceNumber}')">Remove</button>
           </td>
         `;

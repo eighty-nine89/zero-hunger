@@ -15,14 +15,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f8f9fa;
+            background: url('images/adminbackground3.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
         }
 
         .container {
-            max-width: 400px;
+            max-width: 500px;
             padding: 2rem;
+            width: 100%;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             text-align: center;
         }
@@ -35,6 +38,10 @@
             width: 100%;
         }
 
+        .btn-primary:hover{
+            color: white;
+            background: #1F2346;
+        }
         .alert {
             display: none;
             margin-top: 1rem;
@@ -80,7 +87,7 @@
         </div>
     </nav>
     <div class="container">
-        <h2>Administrative Login</h2>
+        <h2>Administrator Login</h2>
         <form id="login-form" autocomplete="off">
             <input type="email" id="email" autocomplete="off" class="form-control" placeholder="Email" required>
             <input type="password" id="password" autocomplete="off" class="form-control" placeholder="Password" required>

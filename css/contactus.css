@@ -100,8 +100,8 @@ body{
         display: none;
     }
     .image-header img{
-        height: 50%;
-        width: 50%;
+        width: 100%;
+        margin-left: -0.5rem;
     }
     .navbar-toggler {
         place-items: end;
@@ -118,12 +118,12 @@ body{
     }
 }
 /* image title*/
-div.image-header{
+/* div.image-header{
     text-align: center;
-}
+} */
 .image-header img{
-    margin-top: -2rem;
-    margin-bottom: -7rem;
+    height: 18rem;
+    object-fit: cover;
 }
 /* Contact Us Form */
 .heading h3{
