@@ -240,31 +240,63 @@
         </div>
     </section>
 </div>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
-    document.getElementById('donation-form').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent form from submitting normally
-      // Get form data
-      const form = event.target;
-      const formData = new FormData(form);
-      const donationData = {
-        foodName: formData.get('food-name'),
-        foodType: formData.get('food-type'),
-        manufactureDate: formData.get('mandate'),
-        expiryDate: formData.get('expdate'),
-        foodbankCenter: formData.get('foodbank-center'),
-        donationDate: formData.get('donatedate'),
-        donationTime: formData.get('time'),
-        additionalDetails: formData.get('message'),
-        donorName: formData.get('donor-name'),
-        donorPhone: formData.get('donor-phone'),
-        donorEmail: formData.get('donor-email'),
-        referenceNumber: 'REF' + Math.floor(Math.random() * 9000000000) + 1000000000
-      };
-      // Save to local storage
-      let donations = JSON.parse(localStorage.getItem('donations')) || [];
-      donations.push(donationData);
-      localStorage.setItem('donations', JSON.stringify(donations));
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.getElementById('donation-form').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Prevent form from submitting normally
+
+    // Get form data
+    const form = event.target;
+    const formData = new FormData(form);
+    const donationData = {
+      foodName: formData.get('food-name'),
+      foodType: formData.get('food-type'),
+      manufactureDate: formData.get('mandate'),
+      expiryDate: formData.get('expdate'),
+      foodbankCenter: formData.get('foodbank-center'),
+      donationDate: formData.get('donatedate'),
+      donationTime: formData.get('time'),
+      additionalDetails: formData.get('message'),
+      donorName: formData.get('donor-name'),
+      donorPhone: '+233' + formData.get('donor-phone').slice(-9),
+      donorEmail: formData.get('donor-email'),
+      referenceNumber: 'REF' + Math.floor(Math.random() * 9000000000) + 1000000000
+    };
+
+    // Generate a time 3 hours from the donation time
+    const donationDateTime = new Date(`${donationData.donationDate}T${donationData.donationTime}`);
+    const timeLimit = new Date(donationDateTime.getTime() + 3 * 60 * 60 * 1000);
+    const formattedTimeLimit = timeLimit.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    // Save to local storage
+    let donations = JSON.parse(localStorage.getItem('donations')) || [];
+    donations.push(donationData);
+    localStorage.setItem('donations', JSON.stringify(donations));
+
+    // Send SMS using Infobip API
+    const smsMessage = `Dear ${donationData.donorName}, your donation (Ref: ${donationData.referenceNumber}) of ${donationData.foodName} to ${donationData.foodbankCenter} is scheduled for ${donationData.donationDate}. Please ensure to complete the donation by ${formattedTimeLimit}.`;
+
+    const smsData = {
+      from: "zeroHunger",
+      to: donationData.donorPhone,
+      text: smsMessage
+    };
+
+    try {
+      const response = await fetch('https://vvnmvr.api.infobip.com/sms/2/text/single', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'App 0511e843c836a4715509f9058242735f-b54b1085-0a13-4569-bef1-16a809ff21a5',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(smsData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send SMS');
+      }
+
       // Show success message
       Swal.fire({
         title: 'Donation Submitted!',
@@ -274,8 +306,17 @@
       }).then(() => {
         form.reset(); // Clear the form
       });
-    });
-  </script>
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'There was an issue sending the confirmation SMS. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
+  });
+</script>
 </body>
 
 </html>

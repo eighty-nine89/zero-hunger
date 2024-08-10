@@ -117,7 +117,7 @@
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${donation.referenceNumber}</td>
-          <td>${donation.foodName}</td>
+          <td>${donation.foodName.toLowerCase()}</td>
           <td>${donation.foodType}</td>
           <td>${donation.manufactureDate}</td>
           <td>${donation.expiryDate}</td>
@@ -125,7 +125,7 @@
           <td>${donation.donationDate}</td>
           <td>${donation.donationTime}</td>
           <td>${donation.donorName}</td>
-          <td>${donation.donorPhone}</td>
+          <td>${formatGhanaianNumber(donation.donorPhone)}</td>
           <td>${donation.donorEmail}</td>
           <td>${donation.additionalDetails}</td>
           <td>
@@ -135,6 +135,11 @@
         `;
         tableBody.appendChild(row);
       });
+    }
+
+    // Format the phone number to include Ghana international dialing code (+233)
+    function formatGhanaianNumber(phoneNumber) {
+      return '+233' + phoneNumber.replace(/^0/, '');
     }
 
     // Confirm donation
@@ -154,23 +159,37 @@
           confirmButtonText: 'OK'
         });
 
-        // Send SMS via Vonage API
-        const twoHoursLater = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
-        const message = `Dear ${donation.donorName}, your donation is confirmed. Please deliver it to ${donation.foodbankCenter} on ${donation.donationDate} at ${twoHoursLater.getHours()}:${twoHoursLater.getMinutes()}. Ref: ${donation.referenceNumber}.<br> Thank you for your donation.`;
+        // Send SMS via Infobip API
+        // const twoHoursLater = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
+        // const formattedTime = twoHoursLater.toTimeString().split(' ')[0].substring(0, 5);
+        // const message = `Dear ${donation.donorName}, your donation is confirmed. Please deliver it to ${donation.foodbankCenter} on ${donation.donationDate} at ${formattedTime}. Ref: ${donation.referenceNumber}. Thank you for your donation.`;
 
-        axios.post('https://rest.nexmo.com/sms/json', {
-          api_key: 'fd360b96',
-          api_secret: 'r4Dd7O2UeA4mgD1D',
-          to: '+233' + donation.donorPhone,
-          from: 'zeroHunger',
-          text: message
-        })
-        .then(response => {
-          console.log('SMS sent:', response.data);
-        })
-        .catch(error => {
-          console.error('Error sending SMS:', error);
-        });
+        // const donorPhoneNumber = formatGhanaianNumber(donation.donorPhone);
+
+        // axios({
+        //   method: 'post',
+        //   url: 'https://vvnmvr.api.infobip.com/sms/2/text/advanced',
+        //   headers: {
+        //     Authorization: `App 0511e843c836a4715509f9058242735f-b54b1085-0a13-4569-bef1-16a809ff21a5`,
+        //     'Content-Type': 'application/json',
+        //     Accept: 'application/json'
+        //   },
+        //   data: {
+        //     messages: [{
+        //       destinations: [{
+        //         to: donorPhoneNumber
+        //       }],
+        //       from: 'zeroHunger',
+        //       text: message
+        //     }]
+        //   }
+        // })
+        // .then(response => {
+        //   console.log('SMS sent:', response.data);
+        // })
+        // .catch(error => {
+        //   console.error('Error sending SMS:', error);
+        // });
 
         // Remove donation from local storage
         donations = donations.filter(donation => donation.referenceNumber !== referenceNumber);
@@ -181,31 +200,15 @@
 
     // Save donation to Firebase
     async function saveDonationToFirebase(donation) {
-      const donateDatabaseScript = document.createElement('script');
-      donateDatabaseScript.src = 'donateDatabase.js';
-      document.body.appendChild(donateDatabaseScript);
-
-      donateDatabaseScript.onload = function () {
-        set(ref(db, `user/${donation.foodbankCenter}/${donation.donorName}/${donation.referenceNumber}`), {
-          foodName: donation.foodName,
-          foodType: donation.foodType,
-          manufacturedDate: donation.manufactureDate,
-          expiryDate: donation.expiryDate,
-          foodbankCenter: donation.foodbankCenter,
-          donateDate: donation.donationDate,
-          donateTime: donation.donationTime,
-          foodPicture: donation.foodPicture,
-          foodMessage: donation.additionalDetails,
-          donorName: donation.donorName,
-          donorPhonenumber: donation.donorPhone,
-          donorEmail: donation.donorEmail,
-        }).then(() => {
-          console.log("Donation data saved to Firebase successfully.");
-        }).catch(error => {
-          console.error("Error saving donation data to Firebase:", error);
-        });
-      }
-    }
+     donation.foodName = donation.foodName.toLowerCase();
+  const referencePath = `user/${donation.foodbankCenter}/${donation.donorName}`;
+ 
+  try {
+    await firebase.database().ref(referencePath).set(donation);
+  } catch (error) {
+    console.error('Error saving donation to Firebase:', error);
+  }
+}
 
     // Remove donation
     function removeDonation(referenceNumber) {
@@ -215,22 +218,24 @@
       loadDonations();
     }
 
-    // Search functionality
+    // Search donations
     document.getElementById('search-bar').addEventListener('input', function () {
       const query = this.value.toLowerCase();
       const rows = document.querySelectorAll('#donation-table-body tr');
-
       rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(query) ? '' : 'none';
+        const referenceNumber = row.cells[0].textContent.toLowerCase();
+        const donorName = row.cells[8].textContent.toLowerCase();
+        if (referenceNumber.includes(query) || donorName.includes(query)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
       });
     });
 
-    // Load donations on page load
-    window.onload = loadDonations;
-
-    // Check if user is logged in
-    if (localStorage.getItem('isLoggedIn') !== 'true') {
+    // Logout funcionality
+   // Check if user is logged in
+   if (localStorage.getItem('isLoggedIn') !== 'true') {
       alert("You must be logged in to access the admin dashboard.");
       window.location.href = "adminlogin.html";
     }
@@ -250,6 +255,11 @@
         });
       }, 0);
     });
+
+    // Load donations on page load
+    window.onload = function () {
+      loadDonations();
+    }
   </script>
 </body>
 
