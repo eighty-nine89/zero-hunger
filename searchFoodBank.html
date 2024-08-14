@@ -206,32 +206,33 @@
             dbRef.orderByChild('foodName').equalTo(query).once('value', snapshot => {
                 if (snapshot.exists()) {
                     const foodData = snapshot.val();
-                    displaySearchResults(foodData, foodBankName);
+                    displaySearchResults(foodData, foodBankName, query);
                 } else {
                     displayNoResults(query);
                 }
             });
         }
 
-        function displaySearchResults(foodData, foodBankName) {
+        function displaySearchResults(foodData, foodBankName, query) {
             const foodItemsContainer = document.querySelector("#food-items");
             foodItemsContainer.innerHTML = '';
-            for (let key in foodData) {
-                const food = foodData[key];
-                foodItemsContainer.innerHTML += `
-                    <div class="food-item">
-                        <p><strong>Food Name:</strong> ${food.foodName}</p>
-                        <p><strong>Food Type:</strong> ${food.foodType}</p>
-                        <p><strong>Manufactured Date:</strong> ${food.manufacturedDate}</p>
-                        <p><strong>Expiry Date:</strong> ${food.expiryDate}</p>
-                        <p><strong>Donor Name:</strong> ${food.donorName}</p>
-                    </div>
-                    <hr>
-                `;
-            }
+            // for (let key in foodData) {
+            //     const food = foodData[key];
+            //     foodItemsContainer.innerHTML += `
+            //         <div class="food-item">
+            //             <p><strong>Food Name:</strong> ${food.foodName}</p>
+            //             <p><strong>Food Type:</strong> ${food.foodType}</p>
+            //             <p><strong>Manufactured Date:</strong> ${food.manufacturedDate}</p>
+            //             <p><strong>Expiry Date:</strong> ${food.expiryDate}</p>
+            //             <p><strong>Donor Name:</strong> ${food.donorName}</p>
+            //         </div>
+            //         <hr>
+            //     `;
+            // }
             // Redirect to the specific food bank center webpage
             const redirectUrl = foodBankName;
-            window.location.href = redirectUrl + '?searchResults=' + encodeURIComponent(JSON.stringify(foodData));
+            // window.location.href = redirectUrl + '?searchResults=' + encodeURIComponent(JSON.stringify(foodData));
+            window.location.href = redirectUrl + '?searchResults=' + encodeURIComponent(query);
         }
 
         function displayNoResults(query) {

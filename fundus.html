@@ -20,7 +20,8 @@
     <nav class="navbar navbar-expand-sm bg-white text-dark justify-content-center fixed-top">
         <div class="container-fluid justify-content-space-between">
             <div id="logo">zero<a class="navbar-brand" href="index.html" translate="no" id="logo-s">Hunger</a></div>
-            <button class="navbar-toggler hide border-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <button class="navbar-toggler hide border-white" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
@@ -50,70 +51,28 @@
     <div class="container">
         <form action="" id="paymentForm">
             <div class="row">
-                <div class="column">
-                    <h3 class="title">Billing Address</h3>
+                
+                    <h3 class="title">Billing Information</h3>
                     <div class="input-box">
-                        <span>Full Name:</span>
-                        <input type="text" id="fullname" placeholder="John Mills">
+                        <span>First Name:</span>
+                        <input type="text" id="firstname" placeholder="John" required>
+                    </div>
+                    <div class="input-box">
+                        <span>Last Name:</span>
+                        <input type="text" id="lastname" placeholder="Mills" required>
                     </div>
                     <div class="input-box">
                         <span>Email:</span>
-                        <input type="email" id="email" placeholder="">
+                        <input type="email" id="email-address" placeholder="" required>
                     </div>
                     <div class="input-box">
-                        <span>Address:</span>
-                        <input type="text" id="address" placeholder="">
+                        <span>Amount (GHS):</span>
+                        <input type="number" id="amount" placeholder="" required>
                     </div>
-                    <div class="input-box">
-                        <span>City:</span>
-                        <input type="text" id="city" placeholder="">
-                    </div>
-
-                    <div class="flex">
-                        <div class="input-box">
-                            <span>State:</span>
-                            <input type="text" id="state" placeholder="">
-                        </div>
-                        <div class="input-box">
-                            <span>Zip Code:</span>
-                            <input type="text" id="zip" placeholder="">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="column">
-                    <h3 class="title">Payment</h3>
-                    <div class="input-box">
-                        <span>Name on Card:</span>
-                        <input type="text" id="cardname" placeholder="">
-                    </div>
-                    <div class="input-box">
-                        <span>Credit Card Number:</span>
-                        <input type="text" id="cardnumber" placeholder="">
-                    </div>
-                    <div class="input-box">
-                        <span>Amount:</span>
-                        <input type="tel" id="amount" placeholder="">
-                    </div>
-                    <div class="input-box">
-                        <span>Expiry Month:</span>
-                        <input type="text" id="expmonth" placeholder="">
-                    </div>
-
-                    <div class="flex">
-                        <div class="input-box">
-                            <span>Expiry Year:</span>
-                            <input type="text" id="expyear" placeholder="">
-                        </div>
-                        <div class="input-box">
-                            <span>CCV:</span>
-                            <input type="text" id="ccv" placeholder="">
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             <!-- submit button -->
-            <button type="submit" class="button1" id="payButton">Pay</button>
+            <button type="submit" class="button1" onclick="payWithPaystack()">Pay</button>
         </form>
     </div>
 
@@ -137,10 +96,13 @@
                     <div class="footlinks">
                         <h4>Connect</h4>
                         <div class="social">
-                            <a href="https://www.facebook.com/WorldFoodProgramme?locale=hy_AM" target="_blank"><i class='bx bxl-facebook'></i></a>
-              <a href="https://www.instagram.com/Worldfoodprogramme/?hl=en" target="_blank"><i class='bx bxl-instagram'></i></a>
-              <a href="https://www.linkedin.com/company/unwfp/posts/?feedView=all" target="_blank"><i class='bx bxl-linkedin'></i></a>
-              <a href="https://www.youtube.com/@UNFAO" target="_blank"><i class='bx bxl-youtube'></i></a>
+                            <a href="https://www.facebook.com/WorldFoodProgramme?locale=hy_AM" target="_blank"><i
+                                    class='bx bxl-facebook'></i></a>
+                            <a href="https://www.instagram.com/Worldfoodprogramme/?hl=en" target="_blank"><i
+                                    class='bx bxl-instagram'></i></a>
+                            <a href="https://www.linkedin.com/company/unwfp/posts/?feedView=all" target="_blank"><i
+                                    class='bx bxl-linkedin'></i></a>
+                            <a href="https://www.youtube.com/@UNFAO" target="_blank"><i class='bx bxl-youtube'></i></a>
                         </div>
                     </div>
 
@@ -148,7 +110,8 @@
             </div>
 
             <div class="end">
-                <p>Tel: 024 114 5862 | <a href="mailto:kobbyfrimpz89@gmail.com" style="text-decoration: none; color: white;">Email: support@zeroHunger.com</a> | Copyright ©
+                <p>Tel: 024 114 5862 | <a href="mailto:kobbyfrimpz89@gmail.com"
+                        style="text-decoration: none; color: white;">Email: support@zeroHunger.com</a> | Copyright ©
                     2024 zeroHunger
                     | All Rights Reserved <br>Website developed by: zeroHunger | Computer Science Department | KNUST.
                 </p>
@@ -156,38 +119,9 @@
         </section>
     </div>
     <!-- scripts -->
-    <script src="https://js.paystack.co/v1/inline.js"></script> 
+    <script src="https://js.paystack.co/v1/inline.js"></script>
     <script src="javascript/payment.js"></script>
-    <script>
-        // Function to validate all input fields
-        function validateInputs() {
-            const inputs = document.querySelectorAll("#paymentForm input");
-            let allValid = true;
 
-            inputs.forEach(input => {
-                if (input.value.trim() === "") {
-                    allValid = false;
-                    alert(`${input.previousElementSibling.innerText} cannot be empty`);
-                }
-            });
-
-            return allValid;
-        }
-
-        document.getElementById("payButton").addEventListener("click", function(event) {
-            event.preventDefault();
-
-            if (validateInputs()) {
-                // Call your Paystack function or any other action here
-                payWithPaystack();
-            }
-        });
-
-        function payWithPaystack() {
-            // Your Paystack integration logic here
-            alert('Payment initiated');
-        }
-    </script>
 </body>
 
 </html>

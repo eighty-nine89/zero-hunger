@@ -236,6 +236,10 @@
     const db = getDatabase();
 
     function GetAllDataRealtime() {
+      // this gets the particular food being queried
+      const urlParams = new URLSearchParams(window.location.search);
+      const qureyFood = urlParams.get('searchResults');
+
       const dbRef = ref(db, "user/Faculty of Agriculture, KNUST");
 
       onValue(dbRef, (snapshot) => {
@@ -243,7 +247,9 @@
 
         if (snapshot.exists() && snapshot.hasChildren()) {
           snapshot.forEach(childSnapshot => {
-            food.push(childSnapshot.val());
+           // only add food that matches the query
+          if (childSnapshot.val().foodName === qureyFood)
+              food.push(childSnapshot.val());
           });
 
           AddAllItemsToTable(food);
