@@ -54,14 +54,8 @@
         <hr class="divider"> -->
         <nav>
           <ul>
-            <li onclick="document.location='donate.html'">
-              <img src="images/profile.svg" alt="Donate"> Donate
-            </li>
-          </ul>
-          <hr class="divider">
-          <ul>
             <li onclick="document.location='catalogue.html'">
-              <img src="images/profile.svg" alt="Catalogue"> Request
+              <img src="images/profile.svg" alt="Catalogue"> Request Food
             </li>
           </ul>
           <hr class="divider">
@@ -74,7 +68,7 @@
           <ul>
             <li style="color: black;text-decoration: underline;">
               <!-- <img src="images/logout.svg" alt="Log Out" id="signoutbtn">Log out -->
-              <button type="button" id="signoutbtn" style="border: transparent; background: transparent;">Log
+              <button type="button" id="signoutbtn" style="border: transparent; background: transparent; color: red; font-weight: bold;">Log
                 out</button>
             </li>
           </ul>
@@ -472,18 +466,25 @@
     // Sign out and redirect to login page
     document.getElementById("signoutbtn").addEventListener("click", () => {
       signOut(auth).then(() => {
-        // Clear the session and prevent back navigation
+        // Clear session storage (or local storage if you store session tokens there)
+        sessionStorage.clear();
+        localStorage.clear(); // If you store tokens in local storage, clear this as well
+
+        // Prevent back navigation
         if (history.pushState) {
           history.pushState(null, null, window.location.href);
           window.onpopstate = function () {
             history.go(1);
           };
         }
+
+        // Redirect to the login page
         window.location.href = "login.html";
       }).catch((error) => {
         console.error("Sign-out error: ", error);
       });
     });
+
   </script>
 
 
