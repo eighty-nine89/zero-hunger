@@ -89,6 +89,9 @@
           <li class="nav-item" style="white-space: nowrap;">
             <a class="nav-link" href="contactus.html">Contact Us</a>
           </li>
+          <li class="nav-item" style="white-space: nowrap;">
+            <a class="nav-link" href="" id="signoutbtn">Sign Out</a>
+          </li>
         </ul>
       </div>
       <!-- Fund Us Button -->
@@ -175,6 +178,8 @@
     </div>
   </div>
 
+  <!-- script files -->
+  <script src="javascript/logout.js" type="module"></script>
   <!-- Filling form -->
   <script type="module">
     var foodNo = 0;
@@ -211,7 +216,7 @@
       trow.appendChild(td5);
       tbody.appendChild(trow);
     }
-
+ 
     function AddAllItemsToTable(Thefood) {
       tbody.innerHTML = "";
       Thefood.forEach(element => {
