@@ -118,7 +118,7 @@
           <tr>
             <th>NAME OF FOOD</th>
             <th>FOOD TYPE</th>
-            <th>PICTURE OF FOOD</th>
+            <!-- <th>PICTURE OF FOOD</th> -->
             <th>REQUEST FOOD</th>
           </tr>
         </thead>
@@ -184,13 +184,13 @@
       let trow = document.createElement("tr");
       let td1 = document.createElement("td");
       let td2 = document.createElement("td");
-      let td3 = document.createElement("td");
+      // let td3 = document.createElement("td");
       let td5 = document.createElement("td");
       let requestBtn = document.createElement("button");
 
       td1.innerHTML = foodName;
       td2.innerHTML = foodType;
-      td3.innerHTML = `<img src="${foodPicture}" alt="${foodName}" style="width: 100px;">`;
+      // td3.innerHTML = `<img src="${foodPicture}" alt="${foodName}" style="width: 100px;">`;
       requestBtn.className = "btn btn-primary";
       requestBtn.innerText = request;
       requestBtn.setAttribute("data-bs-toggle", "modal");
@@ -206,7 +206,7 @@
       td5.appendChild(requestBtn);
       trow.appendChild(td1);
       trow.appendChild(td2);
-      trow.appendChild(td3);
+      // trow.appendChild(td3);
       trow.appendChild(td5);
       tbody.appendChild(trow);
     }
@@ -214,7 +214,7 @@
     function AddAllItemsToTable(Thefood) {
       tbody.innerHTML = "";
       Thefood.forEach(element => {
-        AddItemToTable(element.foodName, element.foodType, element.foodPicture);
+        AddItemToTable(element.foodName, element.foodType);
       });
     }
 
