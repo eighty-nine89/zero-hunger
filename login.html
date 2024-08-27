@@ -27,7 +27,7 @@
     <!-- Login form-->
     <div class="form-wrapper mt-2">
         <div class="form-side">
-            <form class="my-form" action="index.html" method="post" id="loginForm">
+            <form class="my-form" action="home.html" method="post" id="loginForm">
                 <!-- heading -->
                 <div class="form-welcome-row">
                     <h1 style="text-align: center;">Log in your account</h1>
@@ -102,7 +102,7 @@
                     confirmButtonText: 'Cool'
                 }).then(() => {
                     // Redirect to another page if needed
-                    window.location.href = "index.html";
+                    window.location.href = "home.html";
                 });
             } else if (email === "" || password === "") {
                 Swal.fire({

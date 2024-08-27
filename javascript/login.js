@@ -58,7 +58,7 @@ login.addEventListener('click', (e) => {
     // The signed-in user info.
     const user = result.user;
     console.log(user);
-    window.location.href = "index.html";
+    window.location.href = "home.html";
     // IdP data available using getAdditionalUserInfo(result)
     // ...
   }).catch((error) => {
@@ -89,7 +89,7 @@ submit.addEventListener("click", function (event) {
             // Signed up 
             const user = userCredential.user.uid;
             alert("Log in successful...")
-            window.location.href = "index.html";
+            window.location.href = "home.html";
             // ...
         })
         .catch((error) => {
