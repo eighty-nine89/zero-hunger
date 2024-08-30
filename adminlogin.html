@@ -21,13 +21,18 @@
         }
 
         .container {
-            max-width: 500px;
+            max-width: 600px;
             padding: 2rem;
             width: 100%;
             background-color: #fff;
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             text-align: center;
+        }
+
+        .container h2 {
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         .form-control {
@@ -38,10 +43,11 @@
             width: 100%;
         }
 
-        .btn-primary:hover{
+        .btn-primary:hover {
             color: white;
             background: #1F2346;
         }
+
         .alert {
             display: none;
             margin-top: 1rem;
@@ -82,15 +88,16 @@
     <nav class="navbar navbar-expand-sm bg-white text-dark justify-content-center fixed-top">
         <div class="container-fluid">
             <!-- logo -->
-            <div id="logo">zero<a class="navbar-brand justify-content-space-between" href="adminlogin.html" translate="no"
-                    id="logo-s">Hunger</a></div>
+            <div id="logo">zero<a class="navbar-brand justify-content-space-between" href="adminlogin.html"
+                    translate="no" id="logo-s">Hunger</a></div>
         </div>
     </nav>
     <div class="container">
         <h2>Administrator Login</h2>
         <form id="login-form" autocomplete="off">
             <input type="email" id="email" autocomplete="off" class="form-control" placeholder="Email" required>
-            <input type="password" id="password" autocomplete="off" class="form-control" placeholder="Password" required>
+            <input type="password" id="password" autocomplete="off" class="form-control" placeholder="Password"
+                required>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
         <div id="error-message" class="alert alert-danger" role="alert">
@@ -99,24 +106,76 @@
     </div>
 
     <script>
-        // Fixed credentials (In real applications, never store credentials like this
-        const fixedEmail = "admin@zerohunger.com";
-        const fixedPassword = "zerohunger123";
+        // admins
+        admins = [
+            {
+                email: "admin@cosfoodbank.com",
+                password: "zerohunger123",
+                foodBank: "Food science department, College of Science, KNUST"
+            },
+            {
+                email: "admin@bruneifoodbank.com",
+                password: "zerohunger123",
+                foodBank: "Brunei Complex, KNUST"
+            },
+            {
+                email: "admin@agricfoodbank.com",
+                password: "zerohunger123",
+                foodBank: "Faculty of Agriculture, KNUST"
+            },
+            {
+                email: "admin@comcenfoodbank.com",
+                password: "zerohunger123",
+                foodBank: "Community Center, KNUST"
+            },
+            {
+                email: "admin@foodbank.com",
+                password: "zerohunger123",
+                foodBank: "Food Bank center, KNUST"
+            },
+        ]
 
         document.getElementById("login-form").addEventListener("submit", function (event) {
             event.preventDefault();
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
+            let found = false;
 
-            if (email === fixedEmail && password === fixedPassword) {
-                localStorage.setItem('isLoggedIn', 'true');
-                alert("Login successful!");
-                // Redirect to admin dashboard
-                window.location.href = "admin-dashboard.html";
-            } else {
-                document.getElementById("error-message").style.display = "block";
+            for (let admin of admins) {
+                if (email == admin.email && password == admin.password) {
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem("foodBank", admin.foodBank)
+                    found = true
+                    alert("Login successful!");
+                    // Redirect to admin dashboard
+                    window.location.href = "admin-dashboard.html";
+                }
             }
+
+            if (!found) document.getElementById("error-message").style.display = "block";
         });
+
+
+
+
+        // Fixed credentials (dont forget to remove the credentials in this real application since its not safe.)
+        // const fixedEmail = "admin@zerohunger.com";
+        // const fixedPassword = "zerohunger123";
+
+        // document.getElementById("login-form").addEventListener("submit", function (event) {
+        //     event.preventDefault();
+        //     const email = document.getElementById("email").value;
+        //     const password = document.getElementById("password").value;
+
+        //     if (email === fixedEmail && password === fixedPassword) {
+        //         localStorage.setItem('isLoggedIn', 'true');
+        //         alert("Login successful!");
+        //         // Redirect to admin dashboard
+        //         window.location.href = "admin-dashboard.html";
+        //     } else {
+        //         document.getElementById("error-message").style.display = "block";
+        //     }
+        // });
     </script>
 </body>
 
