@@ -1,13 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyA1sfm2XVLTPEbIVeUAVMvXRV_tFTUyffw",
   authDomain: "zerohunger-f7417.firebaseapp.com",
@@ -27,10 +23,6 @@ function validateFullName(fullName) {
   if (!fullName || fullName.trim() === '') {
     return "Full name cannot be empty";
   }
-
-  // Add more validation checks if needed
-  // e.g., regex for valid name format
-
   return null; // No errors
 }
 
@@ -54,23 +46,28 @@ submit.addEventListener("click", function (event) {
   const auth = getAuth();
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      //sending verification  link to current user email
+      // Send verification email
       sendEmailVerification(auth.currentUser)
-      .then(() =>{
-        alert("Verification link sent to your email to verify your account!")
+        .then(() => {
+          alert("Verification link sent to your email to verify your account!");
+        });
+
+      // Update user profile with full name
+      updateProfile(auth.currentUser, {
+        displayName: fullName
+      }).then(() => {
+        // Signed up and profile updated
+        alert("Account successfully created, verification link sent to your email.");
+        window.location.href = "login.html"; // Redirecting to login page
+      }).catch((error) => {
+        alert("Failed to update profile: " + error.message);
       });
 
-      // Signed up
-      const user = userCredential.user.uid;
-      alert("Account successfully created...");
-      window.location.href = "login.html"; // Redirecting to login page
-      // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(errorMessage);
-      console.log(errorCode);
       console.log(errorCode);
     });
 });
