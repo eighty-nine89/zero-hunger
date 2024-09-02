@@ -15,8 +15,8 @@ admin.initializeApp({
 });
 
 const vonage = new Vonage({
-  apiKey: 'fd360b96',
-  apiSecret: 'r4Dd7O2UeA4mgD1D'
+  apiKey: '748a04e8',
+  apiSecret: '5KAYz7T3TxsNWc5w'
 });
 
 // Enable CORS for all routes
@@ -52,7 +52,7 @@ app.post('/confirmRequest', async (req, res) => {
 
   try {
     // Send SMS via Vonage
-    const from = 'fd360b96';
+    const from = '748a04e8';
     const to = formattedPhone;
     vonage.sms.send({to, from, text: message}, (err, responseData) => {
       if (err) {
