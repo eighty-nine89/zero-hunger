@@ -57,6 +57,7 @@ body {
     font-weight: bolder;
     text-transform: uppercase;
     color: white;
+    margin-bottom: -4rem;
 }
 
 .onboarding-slide {
