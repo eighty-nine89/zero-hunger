@@ -44,7 +44,7 @@ app.post('/confirmRequest', async (req, res) => {
   // Ensure phone number is in the correct format for Ghana without removing the leading zero
   let formattedPhone = phone;
   if (!formattedPhone.startsWith('+233')) {
-    formattedPhone = '+233' + phone;
+    formattedPhone = '+233' + phone.slice(1);
   }
 
   console.log(`Sending SMS to: ${formattedPhone}`);
@@ -52,7 +52,7 @@ app.post('/confirmRequest', async (req, res) => {
 
   try {
     // Send SMS via Vonage
-    const from = '748a04e8';
+    const from = 'VonageAPI'; // You can change this to a valid Sender ID
     const to = formattedPhone;
     vonage.sms.send({to, from, text: message}, (err, responseData) => {
       if (err) {
