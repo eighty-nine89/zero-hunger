@@ -1,1 +1,1 @@
-to use app, visit:  zerohungerknust.netlify.app
+to use app, visit:  https://zerohungerknust.netlify.app
